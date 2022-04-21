@@ -34,7 +34,7 @@ CREATE TABLE `gyvunai` (
   `vartotojo_id` int(40) NOT NULL,
   `kategorijos_id` int(40) NOT NULL,
   `vardas` varchar(50) NOT NULL,
-  `amzius` int(10) NOT NULL,
+  `amzius` date NOT NULL,
   `dokumentacija` varchar(10) NOT NULL,
   `aprasymas` varchar(800) NOT NULL,
   `foto_url` varchar(100) NOT NULL
