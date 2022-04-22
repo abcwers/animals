@@ -27,7 +27,7 @@ USE `gyvuneliu_prieglauda`;
 
 -- duomenu bazės vartotojo sukūrimas
 
-CREATE USER prieglaudos_admin IDENTIFIED BY 'slaptazodis2022';
+CREATE USER IF NOT EXISTS prieglaudos_admin IDENTIFIED BY 'slaptazodis2022';
 GRANT SELECT, INSERT, UPDATE, DELETE ON gyvuneliu_prieglauda.* TO prieglaudos_admin;
 
 -- --------------------------------------------------------
