@@ -1,6 +1,6 @@
 ﻿<?php
 //index.php
-$connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "root", "");
+$connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "prieglaudos_admin", "slaptazodis2022");
 
 $query = "SELECT * FROM gyvunai ORDER BY gyvuno_id DESC";
 $statement = $connect->prepare($query);
@@ -10,7 +10,7 @@ foreach ($result as $row) {
 	$skelbimas[] = $row ;
 	 }
     ?>
-<!-- duomenų bazes pavadinimas "gyvuneliu_prieglauda", vartotojas "root", be slaptažodžio -->	
+<!-- duomenų bazes pavadinimas "gyvuneliu_prieglauda", vartotojas "prieglaudos_admin", slaptažodis "slaptazodis2022" -->	
 
 <!DOCTYPE html>
 <html>
