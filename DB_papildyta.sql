@@ -115,7 +115,7 @@ INSERT INTO `vartotojai` (`vartotojo_id`, `vardas`, `el_pastas`, `slaptazodis`) 
 (10, 'kedworthie7', 'enoseworthy7@zimbio.com', 'xdUKXZIrxQN'),
 (11, 'vgoodered8', 'smiroy8@bbb.org', 'VDAR11PSO5'),
 (12, 'meagan9', 'ebromehead9@stanford.edu', 'dGSw9GuXjf'),
-(13, 'lloniket', 'miglumat43@apple.com', 'JAkdxjw45mdj5'),
+(13, 'administratorius', 'admin@BestAnimals.lt', 'BestAnimals'),
 (14, 'biggonton', 'putlonter4@gmail.com', 'KbkNKer3s4'),
 (15, 'nickolet', 'shelteron22@sa.co', 'ndjrGlsm5KWn7');
 
