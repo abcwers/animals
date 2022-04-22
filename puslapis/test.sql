@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2022 at 07:37 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.1
+-- Generation Time: Apr 20, 2022 at 07:23 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,12 +18,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `skelbimai`
+-- Database: `gyvuneliu_prieglauda`
 --
-CREATE DATABASE IF NOT EXISTS `skelbimai` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_lithuanian_ci;
-USE `skelbimai`;
+
+CREATE DATABASE IF NOT EXISTS `gyvuneliu_prieglauda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_lithuanian_ci;
+USE `gyvuneliu_prieglauda`;
 
 -- --------------------------------------------------------
+
+
 
 --
 -- Table structure for table `gyvunai`
@@ -31,27 +34,35 @@ USE `skelbimai`;
 
 CREATE TABLE `gyvunai` (
   `gyvuno_id` int(40) NOT NULL,
-  `vartotojo_id` int(40) NOT NULL DEFAULT 13,
-  `kategorijos_id` int(40) NOT NULL DEFAULT 4,
-  `vardas` varchar(50) COLLATE utf8mb4_lithuanian_ci NOT NULL,
-  `amzius` date NOT NULL DEFAULT '2022-01-01',
-  `dokumentacija` varchar(10) COLLATE utf8mb4_lithuanian_ci NOT NULL DEFAULT 'nėra',
-  `aprasymas` varchar(800) COLLATE utf8mb4_lithuanian_ci NOT NULL,
-  `foto_url` varchar(100) COLLATE utf8mb4_lithuanian_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_lithuanian_ci;
+  `vartotojo_id` int(40) NOT NULL,
+  `kategorijos_id` int(40) NOT NULL,
+  `vardas` varchar(50) NOT NULL,
+  `amzius` date NOT NULL,
+  `dokumentacija` varchar(10) NOT NULL,
+  `aprasymas` varchar(800) NOT NULL,
+  `foto_url` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `gyvunai`
 --
 
 INSERT INTO `gyvunai` (`gyvuno_id`, `vartotojo_id`, `kategorijos_id`, `vardas`, `amzius`, `dokumentacija`, `aprasymas`, `foto_url`) VALUES
-(1, 1, 1, 'Micius', '2020-04-01', '2', 'Labai myli vaikus', ''),
-(2, 9, 2, 'Rikas', '2020-10-14', '1', 'Galėtų būti puikus vyresnio amžiaus žmogaus draugas!', ''),
-(3, 13, 1, 'Rainė', '2022-01-01', 'nėra', '', 'kate raine.jpg'),
-(4, 13, 2, 'Vizgis', '2021-01-02', 'yra', '', 'linksmas suo vizgis.jpg'),
-(5, 13, 1, 'Žydrė', '2020-05-19', 'nėra', '', 'pilka kate zydre.webp'),
-(6, 13, 2, 'Brisius', '2018-05-16', 'nėra', '', 'suo sargas brisius.jpg'),
-(7, 13, 4, 'Snapė', '2021-09-22', 'nėra', '', 'pilka papuga snape.webp');
+(1, 1, 1, 'Rainė', date '2021-08-03', 'y', 'Labai myli vaikus. Miela ir švelni. Žaisminga bei tvarkinga.', 'kate_raine.jpg'),
+(2, 9, 1, 'Žydrė', date '2012-11-15', 'n', 'Atvyko į prieglaudą iš mažo kaimelio. Ji vyresnio amžiaus. Neišpasakyto meilumo ir švelnumo. Tokia mielutė susirangys šalia ir saugos tave. Labai tvarkinga. Ramaus būdo. Grakšti, smulki katytė. Reikia namų, kur galėtų gyventi be kitų kačių.', 'pilka_kate_zydre.webp'),
+(3, 3, 2, 'Vizgis', date '2020-12-13', 'y', 'Labai energingas, žaismingas. Su vaikais puikiai sutaria, tik ne tuo metu, kai ėda. Pateko į prieglaudą su žaizda ant kaklo. Šiuo metu žaizda dar tik gyja, bet kitą mėnesį jau bus pasiruošęs keliauti į naujus namus!', 'linksmas_suo_vizgis.jpg'),
+(4, 11, 5, 'Snapė', date '2022-01-01', 'y', 'Jauna, žavi, pasyvi papūgėlė. Mėgsta skraidyti ir namie, ir lauke. Sugrįžta pašaukus vardu.', 'pilka_papuga_snape.webp'),
+(5, 15, 4, 'Ačkis', date '2021-04-27', 'y', 'Baikštus, ramaus būdo. Buvo rastas šaltą žiemos rytą po automobiliu. Ieško namų, kuriuose turėtų savo atskirą kampelį.', 'pilkas_zuikis_ackis.jpeg'),
+(6, 4, 2, 'Brisius', date '2016-10-16', 'n', 'Gyvenęs prie būdos. Šeimininkui patekus į ligoninę, žmonės ėmė ieškoti jam prieglobsčio. Nebaikštus, prieraišus.', 'suo_sargas_brisius.jpg'),
+(7, 8, 4, 'Amfora', date '2021-07-19', 'y', 'Judri, nebaiksti. Leidžiasi imama ant rankų. Labai mėgsta sukti ratą naktimis, tad reikalinga atskira patalpa, kad nežadintų Jūsų.', 'degu_amfora.jpg'),
+(8, 12, 3, 'Nimfėja', date '2020-01-10', 'y', 'Labai retas, ilgaamžis, įspūdingo kiauto rašto. Valgo mažai, daug priežiūros nereikalaauja. Nemėgsta tamsos.', 'vezlys_nimfeja.jpg'),
+(9, 2, 2, 'Gurgis', date '2017-11-24', 'y', 'Žaismingas, vikrus. Puikiai sutaria ir su vaikais, ir su kitais gyvūnėliais. Mėgsta ilgus pasivaikščiojimus lauke. Vykdo kelias komandas.', 'suo_gurgis.jpg'),
+(10, 10, 2, 'Norgas', date '2021-08-03', 'n', 'Naminis, ypatingai meilus šunytis. Vykdo kelias komandas. Būtų puikus šeimos draugas gausioje šeimoje, nes reikalauja daug paglostukų. ', 'suo_norgas.jpg'),
+(11, 5, 2, 'Prima', date '2020-10-09', 'y', 'Labai myli vaikus. Miela ir švelni. Žaisminga bei tvarkinga.', 'suo_prima.jpg'),
+(12, 14, 1, 'Dora', date '2021-05-19', 'y', 'Neišpasakyto grožio, gilaus žvilgsnio savininkė. Nesutaria su vaikais. Buvo lūžusi galinė koja, bet jau sugijo, tad yra pasiruošusi keliauti į naujus namus!', 'kate_dora.jpg'),
+(13, 6, 1, 'Gilutis', date '2015-09-18', 'y', 'Žavus savo paprastumu. Tvarkingas, nesileidžia imamas ant rankų. Labiausiai džiaugtųsi, jeigu rastu namus, kuriuose galėtų laisvai vaikščioti lauke.', 'katinas_gilutis.jpg'),
+(14, 13, 1, 'Čaras', date '2019-03-03', 'n', 'Šis pukuotukas pripildys Jūsų namus savo šiluma bei meiumu. yra atsargus, labai draugiškai elgiasi su vaikais. Buvo daryta ausies operacija.', 'katinas_caras.jpg'),
+(15, 7, 1, 'Kumanė', date '2021-08-03', 'y', 'Veislinė, tvarkinga, nebaikšti. Nemėgsta vaikų. Kailis reikalauja ypatingos priežiūros. ', 'kate_kumane.jpg');
 
 -- --------------------------------------------------------
 
@@ -61,8 +72,8 @@ INSERT INTO `gyvunai` (`gyvuno_id`, `vartotojo_id`, `kategorijos_id`, `vardas`, 
 
 CREATE TABLE `kategorijos` (
   `kategorijos_id` int(40) NOT NULL,
-  `kategorija` varchar(40) COLLATE utf8mb4_lithuanian_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_lithuanian_ci;
+  `kategorija` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kategorijos`
@@ -72,7 +83,9 @@ INSERT INTO `kategorijos` (`kategorijos_id`, `kategorija`) VALUES
 (1, 'Katės'),
 (2, 'Šunys'),
 (3, 'Ropliai'),
-(4, 'Kiti_gyvunai');
+(4, 'Graužikai'),
+(5, 'Paukščiai'),
+(6, 'Kiti_gyvunai');
 
 -- --------------------------------------------------------
 
@@ -82,10 +95,10 @@ INSERT INTO `kategorijos` (`kategorijos_id`, `kategorija`) VALUES
 
 CREATE TABLE `vartotojai` (
   `vartotojo_id` int(40) NOT NULL,
-  `vardas` varchar(50) COLLATE utf8mb4_lithuanian_ci NOT NULL,
-  `el_pastas` varchar(50) COLLATE utf8mb4_lithuanian_ci NOT NULL,
-  `slaptazodis` varchar(30) COLLATE utf8mb4_lithuanian_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_lithuanian_ci;
+  `vardas` varchar(50) NOT NULL,
+  `el_pastas` varchar(50) NOT NULL,
+  `slaptazodis` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `vartotojai`
@@ -104,19 +117,21 @@ INSERT INTO `vartotojai` (`vartotojo_id`, `vardas`, `el_pastas`, `slaptazodis`) 
 (10, 'kedworthie7', 'enoseworthy7@zimbio.com', 'xdUKXZIrxQN'),
 (11, 'vgoodered8', 'smiroy8@bbb.org', 'VDAR11PSO5'),
 (12, 'meagan9', 'ebromehead9@stanford.edu', 'dGSw9GuXjf'),
-(13, 'administratorius', 'admin@BestAnimals.lt', 'BestAnimals');
+(13, 'administratorius', 'admin@BestAnimals.lt', 'BestAnimals'),
+(14, 'biggonton', 'putlonter4@gmail.com', 'KbkNKer3s4'),
+(15, 'nickolet', 'shelteron22@sa.co', 'ndjrGlsm5KWn7');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+
+--
 -- Indexes for table `gyvunai`
 --
 ALTER TABLE `gyvunai`
-  ADD PRIMARY KEY (`gyvuno_id`),
-  ADD KEY `gyvunai_ibfk_1` (`kategorijos_id`),
-  ADD KEY `gyvunai_ibfk_3` (`vartotojo_id`);
+  ADD PRIMARY KEY (`gyvuno_id`);
 
 --
 -- Indexes for table `kategorijos`
@@ -136,10 +151,14 @@ ALTER TABLE `vartotojai`
 --
 
 --
+
+--
+
+--
 -- AUTO_INCREMENT for table `gyvunai`
 --
 ALTER TABLE `gyvunai`
-  MODIFY `gyvuno_id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `gyvuno_id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kategorijos`
@@ -151,7 +170,7 @@ ALTER TABLE `kategorijos`
 -- AUTO_INCREMENT for table `vartotojai`
 --
 ALTER TABLE `vartotojai`
-  MODIFY `vartotojo_id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `vartotojo_id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
