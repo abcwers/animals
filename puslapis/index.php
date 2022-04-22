@@ -10,7 +10,7 @@ foreach ($result as $row) {
 	$skelbimas[] = $row ;
 	 }
     ?>
-<!-- duomenų bazes pavadinimas "gyvuneliu_prieglauda", vartotojas "root", be slaptažodžio -->
+<!-- duomenų bazes pavadinimas "gyvuneliu_prieglauda", vartotojas "root", be slaptažodžio -->	
 
 <!DOCTYPE html>
 <html>
@@ -92,7 +92,7 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
 		
 <nav class="navbar navbar-expand-md navbar-light">
   <div class="container position-static">
-    <a class="navbar-brand " href="#">
+    <a class="navbar-brand " href="./">
       <img src="./img/peda.svg" alt="..." height="30"> Best Animals 
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,10 +104,10 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
           <a class="nav-link prideti "  href="#">+ Pridėti</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Pradžia</a>
+          <a class="nav-link active" aria-current="page" href="./">Pradžia</a>
         </li>
 	        <li class="nav-item">
-          <a class="nav-link" href="#">Apie mus</a>
+          <a class="nav-link" href="./apie_mus.html">Apie mus</a>
         </li>	
 		
         <li class="nav-item">
@@ -251,7 +251,7 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
       <ul class="navbar-nav mx-auto ">
 
 	        <li class="nav-item">
-          <a class="nav-link" href="#">Apie mus</a>
+          <a class="nav-link" href="./apie_mus.html">Apie mus</a>
         </li>	
 		
         <li class="nav-item">
