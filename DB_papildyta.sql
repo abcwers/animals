@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `gyvuneliu_prieglauda`
 --
-
+CREATE DATABASE IF NOT EXISTS `gyvuneliu_prieglauda` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_lithuanian_ci;
+USE `gyvuneliu_prieglauda`;
 -- --------------------------------------------------------
 
 
