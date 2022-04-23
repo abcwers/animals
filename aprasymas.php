@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 //skelbimas.php?id=2
 $connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "prieglaudos_admin", "slaptazodis2022");$query = "SELECT * FROM gyvunai,kategorijos WHERE gyvunai.kategorijos_id = kategorijos.kategorijos_id AND gyvuno_id= " . $_GET['id'] ;
 $statement = $connect->prepare($query);
@@ -34,6 +34,9 @@ $amzius = round($totalSecondsDiff/60/60/24/365,1); //skirtumas metais suapvalint
 
 	
 <style>
+html {
+  overflow-y: scroll;
+}
 .row{ margin-left: 0; margin-right: 0;}
 
 .container{
@@ -80,7 +83,7 @@ margin-left: 0
 }
 
 .navbar-expand-md{
-margin-top:20px ; /* meniu nuleidimas nuo viršaus */
+top:20px ; /* meniu nuleidimas nuo viršaus */
 }
 .stiliusf {
 	font-size: 17px;
@@ -89,7 +92,7 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
 
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 		
 <nav class="navbar navbar-expand-md navbar-light">
 <div class="container position-static">
@@ -129,21 +132,11 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
 </div>
 </nav>
 	  
-	 
-		<div  style ="height:50px"> 
-		
-	</div>
 
-<header class="container">
-   <div class="row">
-		<div class="col float-right">
-  
-    <a class="nav-link " href="javascript:javascript:history.go(-1)">< Atgal</a>
-	
+ <main class="container py-5" >
 
- <main class="container py-5" style="height:76vh">
-
-
+<a class="nav-link " href="javascript:javascript:history.go(-1)">< Atgal</a>
+	<div  style ="height:50px"> </div>
 
    <div class="row" data-masonry="{&quot;percentPosition&quot;: true } ">
     <div class="col-sm-6 col-lg-4">
@@ -175,22 +168,12 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
 </main>
 
 
- 
-<div class="row ">
+<div class=""> </div>
+
+<div class="row mt-auto">
 <div class="col my-auto col-6-offset">
 <nav class="navbar navbar-expand-sm navbar-light ">
   <div class="container">
@@ -198,15 +181,15 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
       <ul class="navbar-nav mx-auto ">
 
 	        <li class="nav-item">
-          <a class="nav-link" href="#">Apie mus</a>
-        </li>	
-		
-        <li class="nav-item">
-          <a class="nav-link" href="#">Globotiniai</a>
+          <a class="nav-link " href="./apie_mus.html">Apie mus</a>
         </li>
-		
+
+        <li class="nav-item">
+          <a class="nav-link" href="./globotiniai.php">Globotiniai</a>
+        </li>
+
 		<li class="nav-item">
-          <a class="nav-link" href="#">Kontaktai</a>
+          <a class="nav-link" href="./kontaktai.html">Kontaktai</a>
         </li>
 
       </ul>
@@ -223,4 +206,3 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
            
     </body>
 </html>
-
