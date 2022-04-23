@@ -105,7 +105,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 <ul class="navbar-nav ms-auto ">
 <li class="nav-item">
-<a class="nav-link prideti " href="#">+ Pridėti</a>
+<a class="nav-link prideti " href="./prideti.php">+ Pridėti</a>
 </li>
 <li class="nav-item">
 <a class="nav-link " href="./">Pradžia</a>
