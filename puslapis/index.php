@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 //index.php
 $connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "prieglaudos_admin", "slaptazodis2022");
 
@@ -10,7 +10,8 @@ foreach ($result as $row) {
 	$skelbimas[] = $row ;
 	 }
     ?>
-<!-- duomenų bazes pavadinimas "gyvuneliu_prieglauda", vartotojas "prieglaudos_admin", slaptažodis "slaptazodis2022" -->	
+	
+<!-- duomenų bazes pavadinimas "gyvuneliu_prieglauda", vartotojas "root", be slaptažodžio -->	
 
 <!DOCTYPE html>
 <html>
@@ -81,7 +82,7 @@ margin-left: 0
 }
 
 .navbar-expand-md{
-margin-top:20px ; /* meniu nuleidimas nuo viršaus */
+top:20px ; /* meniu nuleidimas nuo viršaus */
 }
 
 	</style>
@@ -101,7 +102,7 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto ">
 	          <li class="nav-item">
-          <a class="nav-link prideti "  href="#">+ Pridėti</a>
+          <a class="nav-link prideti "  href="./prideti.php">+ Pridėti</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="./">Pradžia</a>
@@ -111,11 +112,11 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
         </li>	
 		
         <li class="nav-item">
-          <a class="nav-link" href="#">Globotiniai</a>
+          <a class="nav-link" href="./globotiniai.php">Globotiniai</a>
         </li>
 		
 		<li class="nav-item">
-          <a class="nav-link" href="#">Kontaktai</a>
+          <a class="nav-link" href="./kontaktai.html">Kontaktai</a>
         </li>
 		
 <!--	gali prireikti, jei kursime su vartotojais	
@@ -178,6 +179,7 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
 
   <div class="row" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 690px;">
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
+	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[0]["gyvuno_id"]; ?>">
       <div class="card">
 	
 	<img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[0]["foto_url"]; ?>" alt="..." width="100%" >
@@ -185,9 +187,10 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $skelbimas[0]["vardas"]; ?></h5>
         </div>
-      </div>
+      </div></a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 0px;">
+	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[1]["gyvuno_id"]; ?>">
       <div class="card">
 
 <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[1]["foto_url"]; ?>" alt="..." width="100%" >
@@ -195,9 +198,10 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $skelbimas[1]["vardas"]; ?></h5>
         </div>
-      </div>
+      </div> </a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 66.6667%; top: 0px;">
+	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[2]["gyvuno_id"]; ?>">
       <div class="card">
 
 <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[2]["foto_url"]; ?>" alt="..." width="100%" >
@@ -205,9 +209,10 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $skelbimas[2]["vardas"]; ?></h5>
         </div>
-      </div>
+      </div></a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 171px;">
+	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[3]["gyvuno_id"]; ?>">
       <div class="card">
 
 <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[3]["foto_url"]; ?>" alt="..." width="100%" >
@@ -215,9 +220,10 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $skelbimas[3]["vardas"]; ?></h5>
         </div>
-      </div>
+      </div></a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 310px;">
+	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[4]["gyvuno_id"]; ?>">
       <div class="card">
 
 <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[4]["foto_url"]; ?>" alt="..." width="100%" >
@@ -225,15 +231,16 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
         <div class="card-body">
           <h5 class="card-title text-center"><?php echo $skelbimas[4]["vardas"]; ?></h5>
         </div>
-      </div>
+      </div> </a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 362px;">
+	<a class="nav-link"  href="./globotiniai.php">
 <div class="card">
         <svg class="bd-placeholder-img card-img" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Card image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Žiūrėti visus</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em" text-anchor="middle">Žiūrėti visus</text></svg> 
    
    
 
-      </div>
+      </div></a>
     </div>
 
 
@@ -255,11 +262,11 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
         </li>	
 		
         <li class="nav-item">
-          <a class="nav-link" href="#">Globotiniai</a>
+          <a class="nav-link" href="./globotiniai.php">Globotiniai</a>
         </li>
 		
 		<li class="nav-item">
-          <a class="nav-link" href="#">Kontaktai</a>
+          <a class="nav-link" href="./kontaktai.html">Kontaktai</a>
         </li>
 
       </ul>
