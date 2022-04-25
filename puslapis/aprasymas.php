@@ -39,9 +39,6 @@ html {
 }
 .row{ margin-left: 0; margin-right: 0;}
 
-.container{
-    .row{margin-left: -15px; margin-right: -15px;}
-}
 
 body {
     font-family: 'Balsamiq Sans';
@@ -50,6 +47,11 @@ body {
 .nav-link {
 
 color: black !important;
+}
+
+.nav-link:hover {
+
+opacity:0.8;
 }
 
 .navbar-brand, .active {
@@ -62,10 +64,11 @@ margin-top:-16px;
 }
 	
 .prideti {
-  border: 5px solid;
+  border: 5px solid black;
   padding: 0px;
-  box-shadow: 3px 5px;
  margin-right: 20px;
+ background: #2b78e4;
+ color: white !important;
 }	
 
 .telefonas {
