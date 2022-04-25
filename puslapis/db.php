@@ -1,6 +1,10 @@
 <?php
-include 'config.php';
 
+// Database configuration
+$host = "localhost";
+$db_name = "gyvuneliu_prieglauda";
+$db_user = "prieglaudos_admin";
+$db_password = "slaptazodis2022";
 
 function getDBConnection(){
 	global $host, $db_name, $db_user, $db_password;
