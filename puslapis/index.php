@@ -2,7 +2,7 @@
 //index.php
 $connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "prieglaudos_admin", "slaptazodis2022");
 
-$query = "SELECT * FROM gyvunai ORDER BY gyvuno_id DESC";
+$query = "SELECT * FROM gyvunai ORDER BY (gyvuno_id=16) DESC, RAND() LIMIT 0,5;";
 $statement = $connect->prepare($query);
 $statement->execute();
 $result = $statement->fetchAll();
@@ -38,10 +38,6 @@ foreach ($result as $row) {
 <style>
 .row{ margin-left: 0; margin-right: 0;}
 
-.container{
-    .row{margin-left: -15px; margin-right: -15px;}
-}
-
 body {
     font-family: 'Balsamiq Sans';
 }	
@@ -49,6 +45,11 @@ body {
 .nav-link {
 
 color: black !important;
+}
+
+.nav-link:hover {
+
+opacity:0.8;
 }
 
 .navbar-brand, .active {
@@ -61,18 +62,19 @@ margin-top:-16px;
 }
 	
 .prideti {
-  border: 5px solid;
+  border: 5px solid black;
   padding: 0px;
-  box-shadow: 3px 5px;
  margin-right: 20px;
-}	
+ background: #2b78e4;
+ color: white !important;
+}
 
 .telefonas {
   border: 5px solid;
   padding: 10px;
-  box-shadow: 3px 5px;
-
- width: 250px;
+  
+ background: #cccccc;
+ width: 260px;
 
 }	
 
@@ -140,14 +142,14 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
   
    
 	
-<H1>Find your new bestfriend</H1>
+<H1>Surask geriausią draugą</H1>
 <p class="p-3">
 <p >
-<H4>Adopt a pet or help him find home</H4>
+<H4>Priglausk gyvūną arba surask jam namus!</H4>
 <p class="p-3">
 <p>
 	<div class="telefonas">
-<img src="./img/phone.svg" alt="..." height="20"> Call now +370 00 000 000
+<img src="./img/phone.svg" alt="..." height="20"> Skambink +370 00 000 000
 	</div>
 		</div>
  
@@ -160,24 +162,20 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 </header>
 
 
-    <p>
-	
-		<div  style ="height:50px"> 
+  
 	
 
-	
-	</div>
 	
 
            
 
 	
- <main class="container py-5">
-  <h4>Naujausi globotiniai</h4>
+ <main class="container ">
+  <h4>Mūsų globotiniai</h4>
 
   <p class="my-5">
-
-  <div class="row" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 690px;">
+				<!-- data-masonry="{&quot;percentPosition&quot;: true }" -->
+  <div class="row" data-masonry="{&quot;horizontalOrder&quot;: true }" style="position: relative; height: 690px;">
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
 	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[0]["gyvuno_id"]; ?>">
       <div class="card">
@@ -222,7 +220,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
         </div>
       </div></a>
     </div>
-    <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 310px;">
+    <div class="col-sm-6 col-lg-4 mb-4 " style="position: absolute; left: 33.3333%; top: 310px;">
 	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[4]["gyvuno_id"]; ?>">
       <div class="card">
 
@@ -233,10 +231,10 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
         </div>
       </div> </a>
     </div>
-    <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 362px;">
+    <div class="col-sm-6 col-lg-4 mb-4 " style="position: absolute; left: 0%; top: 362px;">
 	<a class="nav-link"  href="./globotiniai.php">
 <div class="card">
-        <svg class="bd-placeholder-img card-img" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Card image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Žiūrėti visus</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em" text-anchor="middle">Žiūrėti visus</text></svg> 
+        <svg class="bd-placeholder-img card-img" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Card image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Žiūrėti visus</title><rect width="100%" height="100%" fill="#cccccc"></rect><text x="50%" y="50%" fill="black" dy=".3em" font-size="20px" text-anchor="middle">Žiūrėti visus</text></svg> 
    
    
 
