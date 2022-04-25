@@ -68,7 +68,7 @@ INSERT INTO `gyvunai` (`gyvuno_id`, `vartotojo_id`, `kategorijos_id`, `vardas`, 
 (12, 14, 1, 'Dora', date '2021-05-19', 'yra', 'Neišpasakyto grožio, gilaus žvilgsnio savininkė. Nesutaria su vaikais. Buvo lūžusi galinė koja, bet jau sugijo, tad yra pasiruošusi keliauti į naujus namus!', 'kate_dora.jpg'),
 (13, 6, 1, 'Gilutis', date '2015-09-18', 'yra', 'Žavus savo paprastumu. Tvarkingas, nesileidžia imamas ant rankų. Labiausiai džiaugtųsi, jeigu rastu namus, kuriuose galėtų laisvai vaikščioti lauke.', 'katinas_gilutis.jpg'),
 (14, 13, 1, 'Čaras', date '2019-03-03', 'nėra', 'Šis pukuotukas pripildys Jūsų namus savo šiluma bei meiumu. yra atsargus, labai draugiškai elgiasi su vaikais. Buvo daryta ausies operacija.', 'katinas_caras.jpg'),
-(15, 7, 1, 'Kumanė', date '2021-08-03', 'yra', 'Veislinė, tvarkinga, nebaikšti. Nemėgsta vaikų. Kailis reikalauja ypatingos priežiūros. ', 'kate_kumane.jpg');
+(15, 7, 1, 'Kumanė', date '2021-08-03', 'yra', 'Veislinė, tvarkinga, nebaikšti. Nemėgsta vaikų. Kailis reikalauja ypatingos priežiūros. ', 'kate_kumane.jpg'),
 (16, 13, 3, 'Diana', date '2019-04-25', 'nėra', '', 'Diana.jpg');
 
 -- --------------------------------------------------------
