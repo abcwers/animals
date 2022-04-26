@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //index.php
 $connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "prieglaudos_admin", "slaptazodis2022");
 
