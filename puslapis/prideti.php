@@ -1,14 +1,102 @@
 <?php
 //prideti_skelbima.php?kategorija=6&vardas=Mike&amzius=2021-08-03&dokumentai=yra&aprasymas=test aprašymas
-$connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "prieglaudos_admin", "slaptazodis2022");
+include 'db.php';
+
+$connect = getDBConnection();
 $query = "SELECT * FROM kategorijos";
 $statement = $connect->prepare($query);
 $statement->execute();
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 	  ?>
 
+<?php
+// ---------------------------------------------------------------------------------
+// define variables and set to empty values
+$KlaidosPranesimas = "";
+$dokumentaiErrArrow = $kategorijaErrArrow = "";
+$vardasErrBorder = $kategorijaErrBorder = $amziusErrBorder = $dokumentaiErrBorder = $fileToUploadErrBorder = "";
+//	$vardas = $name = isset($_POST['vardas']) ? $_POST['vardas'] : '';
+
+$vardas = $kategorija = $amzius = $dokumentai = $fileToUpload= "";
+$patikrinimas = 0;
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  if (empty($_POST["vardas"])) {
+    $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
+	$vardasErrBorder = 'class="errorBorder"';
+	$patikrinimas = 1;
+  } else {
+    $vardas = test_input($_POST["vardas"]);
+  }
+  
+  if (empty($_POST["kategorija"])) {
+    $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
+	$kategorijaErrBorder  = 'class="errorBorder"';
+	$kategorijaErrArrow = 'ErrDropList';
+	$patikrinimas = 1;
+  } else {
+    $kategorija = test_input($_POST["kategorija"]);
+  }
+    
+  if (empty($_POST["amzius"])) {
+    $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
+	$amziusErrBorder  = 'class="errorBorder"';
+	$patikrinimas = 1;
+  } else {
+    $amzius = test_input($_POST["amzius"]);
+  }
+
+  if (empty($_POST["dokumentai"])) {
+    $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
+	$dokumentaiErrBorder  = 'class="errorBorder"';
+	$dokumentaiErrArrow = 'ErrDropList';
+	$patikrinimas = 1;
+  } else {
+    $dokumentai = test_input($_POST["dokumentai"]);
+  }
+
+  if (empty($_POST["fileToUpload"])) {
+    $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
+	$fileToUploadErrBorder  = 'class="errorBorder"';
+	$patikrinimas = 1;
+  } else {
+    $fileToUpload = test_input($_POST["fileToUpload"]);
+  }
+  
+    if ($patikrinimas == 0) {
+    $KlaidosPranesimas = "klaidos nėra , pasiruošęs įrašo sukūrimui į DB ir failo įkėlimui";
+	
+
+
+	
+	
+  } else {
+ //  $KlaidosPranesimas = $patikrinimas;
+   
+   
+   
+  }
+  
+}
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+
+
+// ---------------------------------------------------------------------------------
+?>
+
+
+
 <!DOCTYPE html>
-<html>
+<html lang="lt">
 <head>
 <!-- skirtuko pavadinimas -->
 <title>BestAnimals.lt</title>
@@ -33,9 +121,6 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 .row{ margin-left: 0; margin-right: 0;}
 
-.container{
-    .row{margin-left: -15px; margin-right: -15px;}
-} 
 
 body {
     font-family: 'Balsamiq Sans';
@@ -44,6 +129,11 @@ body {
 .nav-link {
 
 color: black !important;
+}
+
+.nav-link:hover {
+
+opacity:0.8;
 }
 
 .navbar-brand, .active {
@@ -56,20 +146,16 @@ margin-top:-16px;
 }
 
 .prideti {
-  border: 5px solid;
+  border: 5px solid black;
   padding: 0px;
-  box-shadow: 3px 5px;
+ /* box-shadow: 3px 5px; */
  margin-right: 20px;
+ background: #2b78e4;
+ /* background:#4275b9 ; */
+ color: white !important;
 }
 
-.telefonas {
-  border: 5px solid;
-  padding: 10px;
-  box-shadow: 3px 5px;
 
- width: 250px;
-
-}
 
 .fb{
  white-space: nowrap;
@@ -80,62 +166,156 @@ margin-left: 0
 margin-top:20px ; /* meniu nuleidimas nuo viršaus */
 }
 
-input[type=text] {
-    border: 3px solid;
-    font-weight: 700 !important;
-    color: black !important;
-}
-
-select
-{
-    border: 3px solid;
-    width: 130px;
-}
-
-label
-{
-  font-weight: 700 !important;
-  color: black !important;
-}
-
-input[type=date] {
-    border: 3px solid;
-    width: 130px;
-}
-
-textarea {
-  border: 3px solid;
-  font-weight: 700 !important;
-  color: black !important;
-}
-
-input[type=button] {
-    border: 3px solid;
-}
-
 	</style>
+	
+	<style>
 
-<script>
-  function validateForm() {
-    let x = document.forms["myForm"]["name"].value;
-    if (x == "") {
-      alert("Įveskite gyvūnėlio vardą!");
-      return false;
+.error {color: #cf292a;}
+.errorBorder {border: 4px solid #cf292a !important;}
+
+
+.btn_issaugoti {
+  border: 5px solid black;
+  padding: 10px;
+ /* box-shadow: 3px 5px; */
+ background: #2b78e4;
+ /* background:#4275b9 ; */
+ color: white !important;
+ width: 250px;
+
+}
+
+.btn_issaugoti:hover {
+opacity:0.8;
+}
+
+
+input,select{
+	  border: 4px solid;
+	background: white;
+	text-color:black;
+	width: 150px;
+}
+
+
+::-webkit-input-placeholder {
+       color: orange;
     }
-  }
-  </script>
+    :-moz-placeholder { /* Upto Firefox 18, Deprecated in Firefox 19  */
+       color: orange;  
+    }
+    ::-moz-placeholder {  /* Firefox 19+ */
+       color: orange;  
+    }
+    :-ms-input-placeholder {  
+       color: orange;  
+    }
 
-<script>
-  function validateDate() {
-      var userdate = new Date(document.getElementById("mydate").value).toJSON().slice(0,10);
-      var today = new Date().toJSON().slice(0,10);
-      if(userdate > today){
-        alert('Gimimo diena negali būti vėlesnė nei šiandiena!');
-      }
-  }
-  </script>
 
-<div id="imagePreview"></div>
+select {
+	//-webkit-appearance: none;
+  //-moz-appearance: none;
+  background: transparent;
+  width: 150px;
+
+  border: 0px solid #CCC;
+  height: 34px;
+  border: 4px solid;
+  opacity: 1;
+}
+
+
+option{background: white;
+border: 4px solid;
+}
+
+
+textarea::-webkit-input-placeholder {
+  color: black;
+}
+
+textarea:-moz-placeholder { /* Firefox 18- */
+  color: black;  
+}
+
+textarea::-moz-placeholder {  /* Firefox 19+ */
+  color: black;  
+}
+
+textarea:-ms-input-placeholder {
+  color: black;  
+}
+
+::placeholder {
+  color: #000000;  
+  opacity: 1;
+}
+
+textarea{
+border: 4px solid black;
+box-sizing: border-box;
+padding: 5px 10px;
+max-width: 100%;
+}
+
+input:focus { 
+        outline: none !important;
+        border-color: #black;
+      /*  box-shadow: 0 0 10px #719ECE; */
+    }
+	
+textarea:focus { 
+        outline: none !important;
+        border-color: #black;
+    /*    box-shadow: 0 0 10px #719ECE; */
+    }
+
+
+.select_box{
+  width: 150px;
+  overflow: hidden;
+  border: 0px solid #000;
+  position: relative;
+ 
+}
+ 
+ .select_box:after{
+  width: 0; 
+  height: 0; 
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid black ;
+  position: absolute;
+  top: 43%;
+  right: 7px;
+  content: "";
+  z-index: 98;
+ }
+
+.ErrDropList{
+  width: 150px;
+  overflow: hidden;
+  border: 0px solid #000;
+  position: relative; 
+ }
+
+.ErrDropList:after{
+  width: 0; 
+  height: 0; 
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #cf292a ;
+  position: absolute;
+  top: 43%;
+  right: 7px;
+  content: "";
+  z-index: 98;
+ }
+
+}
+
+</style>
+
 <script>
     function fileValidation() {
         var fileInput = 
@@ -145,10 +325,10 @@ input[type=button] {
       
         // Allowing file type
         var allowedExtensions = 
-                /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+                /(\.jpg|\.jpeg|\.png|\.gif|\.svg|\.webp)$/i;
           
         if (!allowedExtensions.exec(filePath)) {
-            alert('Netinkamas failo formatas! Pasirinkite jpg, jpeg ar png tipo failą.');
+            alert('Netinkamas failo formatas! Pasirinkite jpg, jpeg, svg, webp, gif ar png tipo failą.');
             fileInput.value = '';
             return false;
         } 
@@ -161,7 +341,7 @@ input[type=button] {
                 reader.onload = function(e) {
                     document.getElementById(
                         'imagePreview').innerHTML = 
-                        '<img src="' + e.target.result
+                        '<img  class="col-6" src="' + e.target.result
                         + '"/>';
                 };
                   
@@ -171,51 +351,55 @@ input[type=button] {
     }
 </script>
 
-
-<script type="text/javascript">
-  setTimeout(function validate () {
-    if (document.getElementById("txtarea_consolidation").value == ""){
-           alert("Išsamiai apibūdindami gyvūnėlį suteikiate jam progą greičiau surasti jį mylinčius namus!");
-           document.getElementById("txtarea_consolidation").focus()
-       }
-       else {
-           alert(document.getElementById("txtarea_consolidation").value);
-       }
-}, 10000);
-
-</script>
+<script>
+  function validateDate() {
+      var userdate = new Date(document.getElementById("mydate").value).toJSON().slice(0,10);
+      var today = new Date().toJSON().slice(0,10);
+      if(userdate > today){
+        alert('Gimimo diena negali būti vėlesnė nei šiandiena!');
+      }
+  }
+  </script>
 
 </head>
 <body>
 
 <nav class="navbar navbar-expand-md navbar-light">
-  <div class="container position-static">
-    <a class="navbar-brand " href="#">
-      <img src="./img/peda.svg" alt="..." height="30"> Best Animals
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto ">
-	          <li class="nav-item">
-          <a class="nav-link"  href="#">+ Pridėti</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Pradžia</a>
-        </li>
-	        <li class="nav-item">
-          <a class="nav-link active" href="#">Apie mus</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Globotiniai</a>
-        </li>
-		<li class="nav-item">
-          <a class="nav-link" href="#">Kontaktai</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+<div class="container position-static">
+<a class="navbar-brand " href="./">
+<img src="./img/peda.svg" alt="..." height="30"> Best Animals
+</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+<ul class="navbar-nav ms-auto ">
+<li class="nav-item">
+<a class="nav-link prideti " href="./prideti.php">+ Pridėti</a>
+</li>
+<li class="nav-item">
+<a class="nav-link " href="./">Pradžia</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="./apie_mus.html">Apie mus</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="./globotiniai.php">Globotiniai</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="./kontaktai.html">Kontaktai</a>
+</li>
+
+<!-- gali prireikti, jei kursime su vartotojais
+<li class="nav-item">
+<a class="nav-link" href="#">Prisijungti</a>
+</li>
+-->
+</ul>
+</div>
+</div>
 </nav>
 
 		<div  style ="height:50px">
@@ -233,90 +417,101 @@ input[type=button] {
 </header>
 
 
-<p>
+    <p>
 
-		<div  style ="height:50px">
-	</div>
-
+	
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
   <main class="container py-2">
   
     <p class="my-2">
   
     <div class="row" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 690px;">
       <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
-         <div class="card-body"> 
-  
-          <div class="card-body">
-            <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
-            <div><input type="text" id="name" name="name" placeholder="Vardas*" style ="width:130px"></div>
-            </br>
-            <div><select name="pasirinkimas">
-              <?php foreach($result as $id => $option) { ?>
-                <option value="<?php echo $option["kategorijos_id"] ?>"><?php echo $option["kategorija"] ?></option>
-  <?php } ?> 
-                </select></div>
-                <br>
-                  <label for="start">Gyvūno amžius:</label>
-              <br></br>
-                  <!-- <input type="date" id="dateb" name="birth-date"
-                      value="2022-04-21"
-                  min="2000-01-01" max="2100-01-01"></br> <-->
-                  <input type='date' onchange="validateDate()" id='mydate' value="2022-04-24"
-                  min="2000-01-01" max="2200-01-01"></input> </br>
-              <br><div> <select name="pasirinkimas">
-                  <option>Dokumentai*</option>
-                      <option value="2">Turi</option>
-              <option value="3">Neturi</option></select></div></br>
-              <label for="myfile">Pasirinkite foto:</label>
-              <br></br>
-              <input type="file" id="file" onchange="return fileValidation()"/>
-                  <br></br>
-                  <div id="imagePreview"></div>
-            <h5 class="card-title text-center"></h5>
-          </div>
-        </div>
+        
+          
+            <div><input type="text" name="vardas" placeholder="Vardas*" value="<?php echo $vardas;?>" <?php echo $vardasErrBorder;?>></div>
+            <br>
+            <div class="<?php echo $kategorijaErrArrow;?> select_box "><select name="kategorija" oninvalid="this.setCustomValidity('Pamiršote pasirinkti kategoriją!')" <?php echo $kategorijaErrBorder;?>>
+			
+			<option value="">Kategorija*</option>
+			
+            <?php foreach($result as $id => $option) { ?>
+                        <option  value="<?php echo $option["kategorijos_id"] ?>"><?php echo $option["kategorija"] ?></option>
+          <?php } ?>
+              </select><span class="error"> </div>
+              <br>
+                  <label for="amzius">Gyvūno amžius *:</label>
+              <br>
+                  <input <?php echo $amziusErrBorder;?> id="mydate" type="date" name="amzius" value="<?php echo $amzius;?>" min="2000-01-01" max="<?= date('Y-m-d'); ?>" >
+				  </br>
+              <br><div class="<?php echo $dokumentaiErrArrow;?> select_box "> <select name="dokumentai" <?php echo $dokumentaiErrBorder;?> >
+                  <option value="">Dokumentai*</option>
+                      <option value="yra">Turi</option>
+              <option value="3">nėra</option></select></div></br>
+			  
+              <label for="fileToUpload">Pasirinkite foto *:</label>
+              <br>
+                  <input id="file" <?php echo $fileToUploadErrBorder;?> type="file" name="fileToUpload" accept="image/jpg,image/jpeg,image/png,image/svg,image/webp,image/gif" onchange="return fileValidation()">
+								  
+                  <br>
+				  <p>
+           <div  id="imagePreview"></div>
+          
+       
       </div>
-      <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; right: 33.3333%; top: 0px;">
+      <div class="col-auto col-lg-8 mb-4" style="position: absolute; right: 33.3333%; top: 0px;">
         
   
   
-          <div class="card-body">
-            <div><textarea rows="13" cols="62" id="txtarea_consolidation" placeholder="Aprašymas"></textarea></div></body>
+         
+            <div><textarea rows="14" cols="70" placeholder="Aprašymas"></textarea></div></body>
             <h5 class="card-title text-center"></h5>
-          </div>
+          
         </div>
       </div>
-      <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 66.6667%; top: 0px;">
-      
-        </div>
+
   </div>
   </main> 
-            <div style="text-align:center"><input type="submit" value="Išsaugoti" onclick="javascript:validate();"></div></br>
-            <br></br>
-     
-            
+            <div style="text-align:center"><input class="btn_issaugoti" type="submit" name="submit" value="Išsaugoti">
+			<br>
+			<br>
+			<span class="error"> <?php echo $KlaidosPranesimas;?></span>	
+			</div><br>
+			
           
+			
+  </form>   
+            
+          <div id="imagePreview"></div>
+
 
 <div class="row ">
 <div class="col my-auto col-6-offset">
 <nav class="navbar navbar-expand-sm navbar-light ">
   <div class="container">
-
+   
       <ul class="navbar-nav mx-auto ">
 
 	        <li class="nav-item">
-          <a class="nav-link active" href="#">Apie mus</a>
-        </li>
-
+          <a class="nav-link" href="./apie_mus.html">Apie mus</a>
+        </li>	
+		
         <li class="nav-item">
-          <a class="nav-link" href="#">Globotiniai</a>
+          <a class="nav-link" href="./globotiniai.php">Globotiniai</a>
+        </li>
+		
+		<li class="nav-item">
+          <a class="nav-link" href="./kontaktai.html">Kontaktai</a>
         </li>
 
-		<li class="nav-item">
-          <a class="nav-link" href="#">Kontaktai</a>
-        </li>
       </ul>
    </div>
- </nav>
+ </nav>  
+  </div>
+  <div class="col-4 col-sm-2 my-auto col-12-offset">
+<img src="./img/facebook.svg" alt="..." height="25"> &nbsp;<img src="./img/instagram.svg" alt="..." height="25">
+  </div>
+
+   </div>
     </body>
 </html>
