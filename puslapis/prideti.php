@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //prideti_skelbima.php?kategorija=6&vardas=Mike&amzius=2021-08-03&dokumentai=yra&aprasymas=test aprašymas
 include 'db.php';
 
