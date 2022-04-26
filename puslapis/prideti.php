@@ -1,6 +1,7 @@
 ﻿<?php
 //prideti_skelbima.php?kategorija=6&vardas=Mike&amzius=2021-08-03&dokumentai=yra&aprasymas=test aprašymas
 include 'db.php';
+//require 'db.php';
 
 $connect = getDBConnection();
 $query = "SELECT * FROM kategorijos";
@@ -10,19 +11,22 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 	  ?>
 
 <?php
+
 // ---------------------------------------------------------------------------------
 // define variables and set to empty values
 $KlaidosPranesimas = "";
 $dokumentaiErrArrow = $kategorijaErrArrow = "";
 $vardasErrBorder = $kategorijaErrBorder = $amziusErrBorder = $dokumentaiErrBorder = $fileToUploadErrBorder = "";
-//	$vardas = $name = isset($_POST['vardas']) ? $_POST['vardas'] : '';
 
-$vardas = $kategorija = $amzius = $dokumentai = $fileToUpload= "";
+$vardas = $kategorija = $amzius = $dokumentai = $fileToUpload= $aprasymas = "";
 $patikrinimas = 0;
 
 
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+$aprasymas = test_input($_POST["aprasymas"]);
 
   if (empty($_POST["vardas"])) {
     $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
@@ -58,24 +62,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dokumentai = test_input($_POST["dokumentai"]);
   }
 
-  if (empty($_POST["fileToUpload"])) {
+  if (empty($_FILES["fileToUpload"]["name"])) {
     $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
 	$fileToUploadErrBorder  = 'class="errorBorder"';
 	$patikrinimas = 1;
   } else {
-    $fileToUpload = test_input($_POST["fileToUpload"]);
+    $fileToUpload = test_input(basename($_FILES["fileToUpload"]["name"]));
   }
   
     if ($patikrinimas == 0) {
     $KlaidosPranesimas = "klaidos nėra , pasiruošęs įrašo sukūrimui į DB ir failo įkėlimui";
-	
 
-
+$query2 = "SELECT * FROM gyvunai ORDER BY gyvuno_id DESC";
 	
+	
+$connect = getDBConnection();
+$statement = $connect->prepare($query2);
+$statement->execute();
+$result2 = $statement->fetchAll();
+foreach ($result2 as $row) {
+	$skelbimas[] = $row ;
+	 }
+
+//būsimas ID naujam įrašui SQL, ir dalis būsimo failo vardo
+$ID = $skelbimas[0][0]+1;
+	
+$target_dir = "./img/skelbimu_img/";
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$NaujasVardas = $target_dir ."ID-". $ID .".". $imageFileType;
+
+// Check if image file is a actual image or fake image
+if(isset($_POST["submit"])) {
+  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+  if($check !== false) {
+    $KlaidosPranesimas =  "File is an image - " . $check["mime"] . ".";
+    $uploadOk = 1;
+  } else {
+    $KlaidosPranesimas =  "File is not an image.";
+    $uploadOk = 0;
+  }
+}
+
+// Check if file already exists
+//if (file_exists($NaujasVardas)) {
+//  echo "Sorry, file already exists.";
+//  $uploadOk = 0;
+//}
+
+// Check file size
+if ($_FILES["fileToUpload"]["size"] > 10485760) {
+  $KlaidosPranesimas =  "Sorry, your file is too large.";
+  $uploadOk = 0;
+}
+
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" && $imageFileType != "webp") {
+  $KlaidosPranesimas =  "Sorry, only JPG, JPEG, PNG, WEBP & GIF files are allowed.";
+  $uploadOk = 0;
+}
+
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+  $KlaidosPranesimas =  "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $NaujasVardas)) {
+    echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+  } else {
+  $KlaidosPranesimas =  "Sorry, there was an error uploading your file.";
+  }
+}
+// duomenų bazės įrašas su nauju failo pavadinimu
+$query3 = sprintf("INSERT INTO `gyvunai` (`gyvuno_id`, `vartotojo_id`, `kategorijos_id`, `vardas`, `amzius`, `dokumentacija`, `aprasymas`, `foto_url`) VALUES (%s,13, %s, '%s', date '%s', '%s', '%s', '%s')",
+	($ID),
+	($_POST["kategorija"]),
+	($_POST["vardas"]),
+	($_POST["amzius"]),
+	($_POST["dokumentai"]),
+	($_POST["aprasymas"]),
+	("ID-". $ID .".". $imageFileType)
+	);	
+	
+$connect = getDBConnection();
+$statement = $connect->prepare($query3);
+$statement->execute();
+$result3 = $statement->fetchAll();
+
+header("Location: ./prideti_pavyko.php?id=". $ID);
+exit();
 	
   } else {
  //  $KlaidosPranesimas = $patikrinimas;
-   
+  
    
    
   }
@@ -120,6 +201,12 @@ function test_input($data) {
 <style>
 
 .row{ margin-left: 0; margin-right: 0;}
+
+.row-fix{   display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;}
 
 
 body {
@@ -319,16 +406,16 @@ textarea:focus {
 <script>
     function fileValidation() {
         var fileInput = 
-            document.getElementById('file');
+            document.getElementById('fileToUpload');
           
         var filePath = fileInput.value;
       
         // Allowing file type
         var allowedExtensions = 
-                /(\.jpg|\.jpeg|\.png|\.gif|\.svg|\.webp)$/i;
+                /(\.jpg|\.jpeg|\.png|\.gif|\.webp)$/i;
           
         if (!allowedExtensions.exec(filePath)) {
-            alert('Netinkamas failo formatas! Pasirinkite jpg, jpeg, svg, webp, gif ar png tipo failą.');
+            alert('Netinkamas failo formatas! Pasirinkite jpg, jpeg, webp, gif ar png tipo failą.');
             fileInput.value = '';
             return false;
         } 
@@ -406,7 +493,7 @@ textarea:focus {
 	</div>
 
 <header class="container">
-   <div class="row">
+   <div class="row row-fix">
 		<div class="col-7 float-right">
 
 <H1>Pridėti globotinį</H1>
@@ -420,12 +507,12 @@ textarea:focus {
     <p>
 
 	
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data"> 
   <main class="container py-2">
   
     <p class="my-2">
   
-    <div class="row" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 690px;">
+    <div class="row row-fix" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 690px;">
       <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
         
           
@@ -446,12 +533,12 @@ textarea:focus {
 				  </br>
               <br><div class="<?php echo $dokumentaiErrArrow;?> select_box "> <select name="dokumentai" <?php echo $dokumentaiErrBorder;?> >
                   <option value="">Dokumentai*</option>
-                      <option value="yra">Turi</option>
-              <option value="3">nėra</option></select></div></br>
+                      <option value="yra">yra</option>
+              <option value="nėra">nėra</option></select></div></br>
 			  
               <label for="fileToUpload">Pasirinkite foto *:</label>
               <br>
-                  <input id="file" <?php echo $fileToUploadErrBorder;?> type="file" name="fileToUpload" accept="image/jpg,image/jpeg,image/png,image/svg,image/webp,image/gif" onchange="return fileValidation()">
+                  <input id="fileToUpload" <?php echo $fileToUploadErrBorder;?> type="file" name="fileToUpload" accept="image/jpg,image/jpeg,image/png,image/webp,image/gif" onchange="return fileValidation()">
 								  
                   <br>
 				  <p>
@@ -464,7 +551,7 @@ textarea:focus {
   
   
          
-            <div><textarea rows="14" cols="70" placeholder="Aprašymas"></textarea></div></body>
+            <div><textarea name="aprasymas" rows="14" cols="70" placeholder="Aprašymas" value=""><?php echo $aprasymas; ?></textarea></div></body>
             <h5 class="card-title text-center"></h5>
           
         </div>
@@ -476,13 +563,10 @@ textarea:focus {
 			<br>
 			<br>
 			<span class="error"> <?php echo $KlaidosPranesimas;?></span>	
-			</div><br>
-			
-          
-			
+			</div><br> 
+
   </form>   
-            
-          <div id="imagePreview"></div>
+        
 
 
 <div class="row ">
