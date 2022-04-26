@@ -1,6 +1,8 @@
 ﻿<?php
 //index.php
-$connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "prieglaudos_admin", "slaptazodis2022");
+include 'db.php';
+
+$connect = getDBConnection();
 
 $query = "SELECT * FROM gyvunai ORDER BY (gyvuno_id=16) DESC, RAND() LIMIT 0,5;";
 $statement = $connect->prepare($query);
@@ -37,6 +39,12 @@ foreach ($result as $row) {
 	
 <style>
 .row{ margin-left: 0; margin-right: 0;}
+
+.row-fix{   display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;}
 
 body {
     font-family: 'Balsamiq Sans';
@@ -137,7 +145,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 	</div>
 
 <header class="container">
-   <div class="row">
+   <div class="row row-fix">
 		<div class="col float-right">
   
    
@@ -175,7 +183,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
   <p class="my-5">
 				<!-- data-masonry="{&quot;percentPosition&quot;: true }" -->
-  <div class="row" data-masonry="{&quot;horizontalOrder&quot;: true }" style="position: relative; height: 690px;">
+  <div class="row row-fix" data-masonry="{&quot;horizontalOrder&quot;: true }" style="position: relative; height: 690px;">
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
 	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[0]["gyvuno_id"]; ?>">
       <div class="card">
