@@ -18,65 +18,69 @@
         
         
         <style>
-        .row{ margin-left: 0; margin-right: 0;}
-        
-        .container{
-            .row{margin-left: -15px; margin-right: -15px;}
-        }
-        
-        body {
-            font-family: 'Balsamiq Sans';
-        }
-        
-        .nav-link {
-        
-        color: black !important;
-        }
-        
-		.nav-link:hover {
+html {
+  overflow-y: scroll;
+}
 
-		opacity:0.8;
-		}
-		
-        .navbar-brand, .active {
-        
-        font-weight: 700 !important;
-        }
-        
-        .navbar-brand img {
-        margin-top:-16px;
-        }
-        
-		.prideti {
-			border: 5px solid black;
-			padding: 0px;
-			margin-right: 20px;
-			background: #2b78e4;
-			color: white !important;
-		}
-        
-        .telefonas {
-          border: 5px solid;
-          padding: 10px;
-          box-shadow: 3px 5px;
-        
-         width: 250px;
-        
-        }
-        
-        .fb{
-         white-space: nowrap;
-        margin-left: 0
-        }
-        
-        .navbar-expand-md{
-        margin-top:20px ; /* meniu nuleidimas nuo viršaus */
-        }
+.row{ margin-left: 0; margin-right: 0;}
+
+
+body {
+    font-family: 'Balsamiq Sans';
+	min-height:100vh;
+	
+
+}
+
+.nav-link {
+
+color: black !important;
+}
+
+.nav-link:hover {
+
+opacity:0.8;
+}
+
+.navbar-brand, .active {
+
+font-weight: 700 !important;
+}
+
+.navbar-brand img {
+margin-top:-16px;
+}
+
+.prideti {
+  border: 5px solid black;
+  padding: 0px;
+ margin-right: 20px;
+ background: #2b78e4;
+ color: white !important;
+}
+
+.telefonas {
+  border: 5px solid;
+  padding: 10px;
+  box-shadow: 3px 5px;
+
+ width: 250px;
+
+}
+
+.fb{
+ white-space: nowrap;
+margin-left: 0
+}
+
+.navbar-expand-md{
+top:20px ; /* meniu nuleidimas nuo viršaus */
+}
             </style>
         
         </head>
         
-          <body>
+          <body class="d-flex flex-column min-vh-100 overflow-auto">
         
                <nav class="navbar navbar-expand-md navbar-light">
                   <div class="container position-static">
@@ -123,15 +127,15 @@
             </div>
         
         <header class="container">
-           <div class="row">
-                <div class="col-7 float-right">
+          
+               
 
         <h1>Kontaktai</H1>
 	
-            </div>
+           
         </header>
 
-		<div  style ="height:5px">
+		<div  style ="height:50px">
 	  </div>
 
 
@@ -139,8 +143,15 @@
     <br>
     <br>
  <div class="container">
-   <div class="row">
-     <div class="col">
+
+   <div class="row" style="
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+">
+     <div class="col-6">
     <h4>
   <p>Susisiekite su mumis el. paštu arba telefonu:</p>
     </h4>
@@ -149,7 +160,7 @@
    <p><b>Telefonas:</b> +370 00 000 000</p>     
    </div>
 
-    <div class="col">
+    <div class="col-auto">
     <h4>
         Mus rasite čia:
     </h4>
@@ -160,35 +171,33 @@
     </div>
     </div>
   </div>
-    
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+  </div>
+  
+   
+<div class="row "> </div>
         
-<div class="row ">
+<div class="row mt-auto">
 <div class="col my-auto col-6-offset">
 <nav class="navbar navbar-expand-sm navbar-light ">
   <div class="container">
-   
+
       <ul class="navbar-nav mx-auto ">
 
 	        <li class="nav-item">
-          <a class="nav-link" href="./apie_mus.html">Apie mus</a>
-        </li>	
-		
+          <a class="nav-link " href="./apie_mus.html">Apie mus</a>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="./globotiniai.php">Globotiniai</a>
         </li>
-		
+
 		<li class="nav-item">
           <a class="nav-link active" href="./kontaktai.html">Kontaktai</a>
         </li>
 
       </ul>
    </div>
- </nav>  
+ </nav>
   </div>
   <div class="col-4 col-sm-2 my-auto col-12-offset">
 <img src="./img/facebook.svg" alt="..." height="25"> &nbsp;<img src="./img/instagram.svg" alt="..." height="25">
