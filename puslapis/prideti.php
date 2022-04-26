@@ -6,7 +6,6 @@ $statement = $connect->prepare($query);
 $statement->execute();
 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 	  ?>
-	
 
 <!DOCTYPE html>
 <html>
@@ -81,7 +80,111 @@ margin-left: 0
 margin-top:20px ; /* meniu nuleidimas nuo viršaus */
 }
 
+input[type=text] {
+    border: 3px solid;
+    font-weight: 700 !important;
+    color: black !important;
+}
+
+select
+{
+    border: 3px solid;
+    width: 130px;
+}
+
+label
+{
+  font-weight: 700 !important;
+  color: black !important;
+}
+
+input[type=date] {
+    border: 3px solid;
+    width: 130px;
+}
+
+textarea {
+  border: 3px solid;
+  font-weight: 700 !important;
+  color: black !important;
+}
+
+input[type=button] {
+    border: 3px solid;
+}
+
 	</style>
+
+<script>
+  function validateForm() {
+    let x = document.forms["myForm"]["name"].value;
+    if (x == "") {
+      alert("Įveskite gyvūnėlio vardą!");
+      return false;
+    }
+  }
+  </script>
+
+<script>
+  function validateDate() {
+      var userdate = new Date(document.getElementById("mydate").value).toJSON().slice(0,10);
+      var today = new Date().toJSON().slice(0,10);
+      if(userdate > today){
+        alert('Gimimo diena negali būti vėlesnė nei šiandiena!');
+      }
+  }
+  </script>
+
+<div id="imagePreview"></div>
+<script>
+    function fileValidation() {
+        var fileInput = 
+            document.getElementById('file');
+          
+        var filePath = fileInput.value;
+      
+        // Allowing file type
+        var allowedExtensions = 
+                /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+          
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Netinkamas failo formatas! Pasirinkite jpg, jpeg ar png tipo failą.');
+            fileInput.value = '';
+            return false;
+        } 
+        else 
+        {
+          
+            // Image preview
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById(
+                        'imagePreview').innerHTML = 
+                        '<img src="' + e.target.result
+                        + '"/>';
+                };
+                  
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    }
+</script>
+
+
+<script type="text/javascript">
+  setTimeout(function validate () {
+    if (document.getElementById("txtarea_consolidation").value == ""){
+           alert("Išsamiai apibūdindami gyvūnėlį suteikiate jam progą greičiau surasti jį mylinčius namus!");
+           document.getElementById("txtarea_consolidation").focus()
+       }
+       else {
+           alert(document.getElementById("txtarea_consolidation").value);
+       }
+}, 10000);
+
+</script>
+
 </head>
 <body>
 
@@ -130,7 +233,7 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
 </header>
 
 
-    <p>
+<p>
 
 		<div  style ="height:50px">
 	</div>
@@ -144,27 +247,31 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
          <div class="card-body"> 
   
           <div class="card-body">
-            <div><input type="text" id="name" name="name" placeholder="Vardas*" style ="width:120px"></div>
-            <br></br>
+            <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
+            <div><input type="text" id="name" name="name" placeholder="Vardas*" style ="width:130px"></div>
+            </br>
             <div><select name="pasirinkimas">
-            <?php foreach($result as $id => $option) { ?>
-                        <option placeholder="Kategorija*" value="<?php echo $option["kategorijos_id"] ?>"><?php echo $option["kategorija"] ?></option>
-          <?php } ?>
-              </select></div>
-              <br>
+              <?php foreach($result as $id => $option) { ?>
+                <option value="<?php echo $option["kategorijos_id"] ?>"><?php echo $option["kategorija"] ?></option>
+  <?php } ?> 
+                </select></div>
+                <br>
                   <label for="start">Gyvūno amžius:</label>
               <br></br>
-                  <input type="date" id="dateb" name="birth-date"
+                  <!-- <input type="date" id="dateb" name="birth-date"
                       value="2022-04-21"
-                  min="2000-01-01" max="2100-01-01"></br>
+                  min="2000-01-01" max="2100-01-01"></br> <-->
+                  <input type='date' onchange="validateDate()" id='mydate' value="2022-04-24"
+                  min="2000-01-01" max="2200-01-01"></input> </br>
               <br><div> <select name="pasirinkimas">
                   <option>Dokumentai*</option>
                       <option value="2">Turi</option>
               <option value="3">Neturi</option></select></div></br>
               <label for="myfile">Pasirinkite foto:</label>
               <br></br>
-                  <input type="file" id="myfile" name="myfile"> 
+              <input type="file" id="file" onchange="return fileValidation()"/>
                   <br></br>
+                  <div id="imagePreview"></div>
             <h5 class="card-title text-center"></h5>
           </div>
         </div>
@@ -174,7 +281,7 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
   
   
           <div class="card-body">
-            <div><textarea rows="14" cols="70" placeholder="Aprašymas"></textarea></div></body>
+            <div><textarea rows="13" cols="62" id="txtarea_consolidation" placeholder="Aprašymas"></textarea></div></body>
             <h5 class="card-title text-center"></h5>
           </div>
         </div>
@@ -184,7 +291,7 @@ margin-top:20px ; /* meniu nuleidimas nuo viršaus */
         </div>
   </div>
   </main> 
-            <div style="text-align:center"><input type="button" value="Išsaugoti"></div></br>
+            <div style="text-align:center"><input type="submit" value="Išsaugoti" onclick="javascript:validate();"></div></br>
             <br></br>
      
             
