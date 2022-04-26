@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 //skelbimas.php?id=2
 $connect = new PDO("mysql:host=localhost;dbname=gyvuneliu_prieglauda;charset=utf8mb4", "prieglaudos_admin", "slaptazodis2022");$query = "SELECT * FROM gyvunai,kategorijos WHERE gyvunai.kategorijos_id = kategorijos.kategorijos_id AND gyvuno_id= " . $_GET['id'] ;
 $statement = $connect->prepare($query);
