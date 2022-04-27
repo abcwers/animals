@@ -200,6 +200,10 @@ function test_input($data) {
 
 <style>
 
+html {
+  overflow-y: scroll;
+}
+
 .row{ margin-left: 0; margin-right: 0;}
 
 .row-fix{   display: -webkit-box;

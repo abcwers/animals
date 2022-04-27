@@ -38,6 +38,11 @@ foreach ($result as $row) {
 
 	
 <style>
+
+html {
+  overflow-y: scroll;
+}
+
 .row{ margin-left: 0; margin-right: 0;}
 
 .row-fix{   display: -webkit-box;
@@ -99,7 +104,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100 overflow-auto">
 		
 <nav class="navbar navbar-expand-md navbar-light">
   <div class="container position-static">
@@ -256,7 +261,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
 
  
-<div class="row ">
+<div class="row mt-auto">
 <div class="col my-auto col-6-offset">
 <nav class="navbar navbar-expand-sm navbar-light ">
   <div class="container">
