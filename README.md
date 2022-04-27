@@ -3,3 +3,4 @@ Aš, Justinas Bakutis, prisidedu
 Aš, Edmonas Gražys, prisidedu!
 Aš, Edmonas Gražys, prisidedu!
 Aš, Indrė Razvanovičiūtė-Zenevičienė, prisidedu!
+Aš, Indrė Razvanovičiūtė-Zenevičienė, prisidedu!
