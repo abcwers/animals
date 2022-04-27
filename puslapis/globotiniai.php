@@ -93,7 +93,7 @@ $i++;
   padding: 6px;
  color:black;
 font-size: 19px;
- width: 280px;
+ min-width: 250px;
   background: #cccccc;
   
 }
@@ -111,7 +111,7 @@ color: #bbb;
     
   display: flex;
 
-  padding: 7px 8px;
+ padding: 7px 8px;
   
 }
 
@@ -133,7 +133,7 @@ html {
   display: flex;
   padding: 2px;
   border: 4px solid black;
- // border-radius: 5px;
+ /* border-radius: 5px; */
 
   width: 280px;
 }
@@ -199,6 +199,16 @@ color: black !important;
 }
 
 .nav-link:hover {
+
+opacity:0.8;
+}
+
+.galerija-link {
+
+color: black !important;
+}
+
+.galerija-link:hover {
 
 opacity:0.8;
 }
@@ -290,15 +300,15 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 	
  <main class="container py-5">
  
-
+ <div class="container">
   <form  >
   <div class="container">
-  <div class="row row-fix">
+  <div class="row-fix row">
   <div class="search-bar col-auto">
   <input name="vardas" type="search" placeholder="Paieška pagal vardą">
   <button type="submit" >Ieškoti</button>
   </div>
-              <div class=" col-auto"><select name="kategorija"  >
+              <div class=" col-auto row-fix"><select name="kategorija"  >
 		
 			<option value="">Kategorija</option>
 			
@@ -307,7 +317,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
           <?php } ?>
               </select> </div>
 			  
-			                <div class=" col-auto"><select name="amzius" >
+			                <div class=" col-auto row-fix"><select name="amzius" >
 		
 			<option value="">Amžius</option>
 			
@@ -350,7 +360,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
   
    <?php foreach($result as $row => $option) { ?>
       <div class="col-sm-6 col-lg-4 mb-4" >
-	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $option["gyvuno_id"]; ?>">
+	<a class="galerija-link"  href="./aprasymas.php?id=<?php echo $option["gyvuno_id"]; ?>">
       <div class="card">
 	
 	<img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $option["foto_url"]; ?>" alt="..." width="100%" >
@@ -369,7 +379,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
 
   </div>
-
+ </div>
 </main>
 
 
@@ -403,7 +413,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
    </div>
 
-   </div>
+   
 
 	
            
