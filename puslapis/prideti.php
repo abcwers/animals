@@ -1,5 +1,5 @@
 ﻿<?php
-//prideti_skelbima.php?kategorija=6&vardas=Mike&amzius=2021-08-03&dokumentai=yra&aprasymas=test aprašymas
+//prideti.php
 include 'db.php';
 //require 'db.php';
 
@@ -211,6 +211,9 @@ function test_input($data) {
 
 body {
     font-family: 'Balsamiq Sans';
+	min-height:100vh;
+	
+
 }
 
 .nav-link {
@@ -449,7 +452,7 @@ textarea:focus {
   </script>
 
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 overflow-auto">
 
 <nav class="navbar navbar-expand-md navbar-light">
 <div class="container position-static">
@@ -569,7 +572,7 @@ textarea:focus {
         
 
 
-<div class="row ">
+<div class="row mt-auto">
 <div class="col my-auto col-6-offset">
 <nav class="navbar navbar-expand-sm navbar-light ">
   <div class="container">
