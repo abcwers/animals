@@ -31,67 +31,9 @@ $amzius = round($totalSecondsDiff/60/60/24/365,1); //skirtumas metais suapvalint
 <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 
 <link href='https://fonts.googleapis.com/css?family=Balsamiq Sans' rel='stylesheet'>
-
+<link href="./custom.css" rel='stylesheet'> <!-- CSS taisykles -->
 	
-<style>
-html {
-  overflow-y: scroll;
-}
-.row{ margin-left: 0; margin-right: 0;}
 
-
-body {
-    font-family: 'Balsamiq Sans';
-}	
-	
-.nav-link {
-
-color: black !important;
-}
-
-.nav-link:hover {
-
-opacity:0.8;
-}
-
-.navbar-brand, .active {
-
-font-weight: 700 !important;
-}
-
-.navbar-brand img {
-margin-top:-16px;
-}
-	
-.prideti {
-  border: 5px solid black;
-  padding: 0px;
- margin-right: 20px;
- background: #2b78e4;
- color: white !important;
-}	
-
-.telefonas {
-  border: 5px solid;
-  padding: 10px;
-  box-shadow: 3px 5px;
-
- width: 250px;
-
-}	
-
-.fb{
- white-space: nowrap;
-margin-left: 0
-}
-
-.navbar-expand-md{
-top:20px ; /* meniu nuleidimas nuo viršaus */
-}
-.stiliusf {
-	font-size: 17px;
-}
-	</style>
 
 </head>
 
