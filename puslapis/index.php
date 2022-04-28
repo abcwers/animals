@@ -41,6 +41,8 @@ foreach ($result as $row) {
 
 
 
+
+
 </head>
 
 
@@ -109,7 +111,46 @@ foreach ($result as $row) {
 
         <img class="bd-placeholder-img card-img-top rounded" src="./img/skelbimu_img/pagr foto.jpg" alt="..." width="100%">
 
+
       </div>
+
+<body class="d-flex flex-column min-vh-100 overflow-auto">
+		
+<nav class="navbar navbar-expand-md navbar-light">
+  <div class="container position-static">
+    <a class="navbar-brand " href="./">
+      <img src="./img/peda.svg" alt="..." height="30"> Best Animals 
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto ">
+	          <li class="nav-item">
+          <a class="nav-link prideti "  href="./prideti.php">+ Pridėti</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="./">Pradžia</a>
+        </li>
+	        <li class="nav-item">
+          <a class="nav-link" href="./apie_mus.html">Apie mus</a>
+        </li>	
+		
+        <li class="nav-item">
+          <a class="nav-link" href="./globotiniai.php">Globotiniai</a>
+        </li>
+		
+		<li class="nav-item">
+          <a class="nav-link" href="./kontaktai.html">Kontaktai</a>
+        </li>
+		
+<!--	gali prireikti, jei kursime su vartotojais	
+		 <li class="nav-item">
+          <a class="nav-link" href="#">Prisijungti</a>
+        </li> 
+-->
+      </ul>
+
     </div>
   </header>
 
@@ -236,6 +277,38 @@ foreach ($result as $row) {
       <img src="./img/facebook.svg" alt="..." height="25"> &nbsp;<img src="./img/instagram.svg" alt="..." height="25">
     </div>
 
+  </div>
+
+
+</main>
+
+
+ 
+<div class="row mt-auto">
+<div class="col my-auto col-6-offset">
+<nav class="navbar navbar-expand-sm navbar-light ">
+  <div class="container">
+   
+      <ul class="navbar-nav mx-auto ">
+
+	        <li class="nav-item">
+          <a class="nav-link" href="./apie_mus.html">Apie mus</a>
+        </li>	
+		
+        <li class="nav-item">
+          <a class="nav-link" href="./globotiniai.php">Globotiniai</a>
+        </li>
+		
+		<li class="nav-item">
+          <a class="nav-link" href="./kontaktai.html">Kontaktai</a>
+        </li>
+
+      </ul>
+   </div>
+ </nav>  
+  </div>
+  <div class="col-4 col-sm-2 my-auto col-12-offset">
+<img src="./img/facebook.svg" alt="..." height="25"> &nbsp;<img src="./img/instagram.svg" alt="..." height="25">
   </div>
 
 

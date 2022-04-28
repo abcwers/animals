@@ -8,11 +8,27 @@ $connect = getDBConnection();
 
 $vardas = $kategorija = $amzius = "";
 
+
 if (!empty($_GET["amzius"])) {
 $time = strtotime("-" . $_GET['amzius'] . " year", time());
 $date = date("Y-m-d", $time);
 $amzius = " AND  amzius BETWEEN DATE_SUB(date '" . $date . "', INTERVAL 1 YEAR) AND date '" . $date ."'";
 ;}
+
+
+//jei $_GET['amzius'] daugiau už 0 ir nėra tuščias
+if (!empty($_GET["amzius"])) {
+$time = strtotime("-" . $_GET['amzius'] . " year", time()); //
+$date = date("Y-m-d", $time);
+$amzius = " AND  amzius BETWEEN DATE_SUB(date '" . $date . "', INTERVAL 1 YEAR) AND date '" . $date ."'";
+;} 
+//jei $_GET['amzius'] == 0
+ if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 0) {
+ 
+$amzius = " AND  amzius BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND CURDATE()";
+	 
+ }
+
 
 if (!empty($_GET["vardas"])) {$vardas = "AND vardas LIKE '%" . $_GET['vardas']."%'";}
 if (!empty($_GET["kategorija"])) {$kategorija = "AND kategorijos_id = " . $_GET['kategorija'];}
@@ -80,6 +96,7 @@ $i++;
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 
@@ -253,6 +270,41 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 </head>
 
 <body class="d-flex flex-column min-vh-100 overflow-auto">
+=======
+
+
+<link href="./custom.css" rel="stylesheet">
+
+<link href='https://fonts.googleapis.com/css?family=Balsamiq Sans' rel='stylesheet'>
+
+
+<script>
+setTimeout(function(){
+let masonryScript = document.createElement( 'script' );
+masonryScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js');
+document.body.appendChild(masonryScript);	
+}, 50);
+</script>
+
+	
+<style>
+
+	
+
+
+
+
+
+
+
+
+	</style>
+
+
+</head>
+
+<body class="d-flex flex-column min-vh-100 overflow-auto"  >
+
 		
 <nav class="navbar navbar-expand-md navbar-light">
 <div class="container position-static">
@@ -299,29 +351,35 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
 	
  <main class="container py-5">
- 
+
+
  <div class="container">
   <form  >
-  <div class="container">
-  <div class="row-fix row">
-  <div class="search-bar col-auto">
-  <input name="vardas" type="search" placeholder="Paieška pagal vardą">
-  <button type="submit" >Ieškoti</button>
-  </div>
-              <div class=" col-auto row-fix"><select name="kategorija"  >
+  <div class="row " >
+  <div class="col-auto  " id="outer" style="border: 4px solid black;"> <!--  paieškos rėmelis -->
+  <div class="row-fix row " > <!-- eilutės kontaineris -->
+  <div class="col-auto line" > <!-- vardas pradžia -->
+  <input  class="paieska" name="vardas" type="search" placeholder="Įveskite gyvūno vardą" value="<?php if (!empty($_GET)) {echo $_GET['vardas'];}?>">
+  
+  </div> <!-- vardas pabaiga -->
+        <!-- kategorija pradžia -->      <div class=" col-auto line"><select class="paieska  " name="kategorija" onchange="this.form.submit()" >
+
 		
 			<option value="">Kategorija</option>
 			
             <?php foreach($kategorijosList as $id => $option) { ?>
-                        <option  value="<?php echo $option["kategorijos_id"] ?>"><?php echo $option["kategorija"] ?></option>
+
+                        <option  value="<?php echo $option["kategorijos_id"] ?>" <?php if (!empty($_GET) && $_GET['kategorija'] == $option["kategorijos_id"]) {echo " selected";} ?>><?php echo $option["kategorija"] ?></option>
           <?php } ?>
-              </select> </div>
+              </select> </div>  <!-- kategorija pabaiga --> 
 			  
-			                <div class=" col-auto row-fix"><select name="amzius" >
+			   <!-- amzius pradžia -->   <div class=" col-auto "><select class="paieska " name="amzius" onchange="this.form.submit()">
+
 		
 			<option value="">Amžius</option>
 			
             
+
                         <option  value="0">nuo 0 iki 1 metų</option>
 						<option  value="1">nuo 1 iki 2 metų</option>
 						<option  value="2">nuo 2 iki 3 metų</option>
@@ -353,6 +411,57 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
  
 
+<option  value="0" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 0) {echo "selected";}?>>nuo 0 iki 1 metų</option>
+<option  value="1" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 1) {echo "selected";}?>>nuo 1 iki 2 metų</option>
+<option  value="2" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 2) {echo "selected";}?>>nuo 2 iki 3 metų</option>
+<option  value="3" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 3) {echo "selected";}?>>nuo 3 iki 4 metų</option>
+<option  value="4" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 4) {echo "selected";}?>>nuo 4 iki 5 metų</option>
+<option  value="5" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 5) {echo "selected";}?>>nuo 5 iki 6 metų</option>
+<option  value="6" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 6) {echo "selected";}?>>nuo 6 iki 7 metų</option>
+<option  value="7" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 7) {echo "selected";}?>>nuo 7 iki 8 metų</option>
+<option  value="8" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 8) {echo "selected";}?>>nuo 8 iki 9 metų</option>
+<option  value="9" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 9) {echo "selected";}?>>nuo 9 iki 10 metų</option>
+<option  value="10" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 10) {echo "selected";}?>>nuo 10 iki 11 metų</option>
+<option  value="11" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 11) {echo "selected";}?>>nuo 11 iki 12 metų</option>
+<option  value="12" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 12) {echo "selected";}?>>nuo 12 iki 13 metų</option>
+<option  value="13" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 13) {echo "selected";}?>>nuo 13 iki 14 metų</option>
+<option  value="14" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 14) {echo "selected";}?>>nuo 14 iki 15 metų</option>
+<option  value="15" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 15) {echo "selected";}?>>nuo 15 iki 16 metų</option>
+<option  value="16" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 16) {echo "selected";}?>>nuo 16 iki 17 metų</option>
+<option  value="17" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 17) {echo "selected";}?>>nuo 17 iki 18 metų</option>
+<option  value="18" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 18) {echo "selected";}?>>nuo 18 iki 19 metų</option>
+<option  value="19" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 19) {echo "selected";}?>>nuo 19 iki 20 metų</option>
+<option  value="20" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 20) {echo "selected";}?>>nuo 20 iki 21 metų</option>
+						
+						
+         
+              </select> 
+			  
+			  </div> <!-- amzius pabaiga -->
+
+			  </div>  <!-- eilutės kontaineris -->
+			  
+			  </div>  <!--  paieškos rėmelis -->
+			  
+			  <button type="submit" class="col-auto mx-4 btn_ieskoti nav-link my-2 my-lg-0 "></button> <!--  paieškos mygtukas -->
+			  <div class="col-auto" style="display: flex;">
+			  <a class=" nav-link " style="align-self: flex-end;" href="./download-animals-csv.php"><img style="margin-top:-7px" src="./img/download.svg" alt="..." height="15">
+			    <span > Atsisiųsti visų globotinių sąrašą</a></a> </div>
+				
+</form>
+
+</div>
+
+ 
+ <div class="col text-center" <?php if (empty($result)) { echo "style='display:block;'"; } else {echo "style='display:none;'";}?>>
+<div  style ="height:50px"> </div> 
+<h4 class="mt-3">Globotinių neradome :(</h4>
+<div>Pasirinkite kitus paieškos kriterijus ir bandykite dar kartą.</div> 
+</div>
+ 
+ 
+
+
   <p class="my-5">
 
   <div class="row row-fix" data-masonry="{&quot;percentPosition&quot;: true }">
@@ -372,10 +481,6 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
     </div>
   <?php } ?>
   
-  
-  
-
-
 
 
   </div>
