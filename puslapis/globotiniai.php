@@ -8,11 +8,19 @@ $connect = getDBConnection();
 
 $vardas = $kategorija = $amzius = "";
 
+
+//jei $_GET['amzius'] daugiau už 0 ir nėra tuščias
 if (!empty($_GET["amzius"])) {
-$time = strtotime("-" . $_GET['amzius'] . " year", time());
+$time = strtotime("-" . $_GET['amzius'] . " year", time()); //
 $date = date("Y-m-d", $time);
 $amzius = " AND  amzius BETWEEN DATE_SUB(date '" . $date . "', INTERVAL 1 YEAR) AND date '" . $date ."'";
-;}
+;} 
+//jei $_GET['amzius'] == 0
+ if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 0) {
+ 
+$amzius = " AND  amzius BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND CURDATE()";
+	 
+ }
 
 if (!empty($_GET["vardas"])) {$vardas = "AND vardas LIKE '%" . $_GET['vardas']."%'";}
 if (!empty($_GET["kategorija"])) {$kategorija = "AND kategorijos_id = " . $_GET['kategorija'];}
@@ -20,7 +28,7 @@ if (!empty($_GET["kategorija"])) {$kategorija = "AND kategorijos_id = " . $_GET[
 
 //paieškos SQL užklausa
 $query = "SELECT * FROM gyvunai  WHERE 1 " . $vardas ." ". $kategorija ." ".  $amzius . " ORDER BY gyvuno_id DESC" ; 
-
+//echo "<br>";
 //echo $query;
 
 $statement = $connect->prepare($query);
@@ -101,7 +109,7 @@ font-size: 19px;
 select {
 
   background: transparent;
-  width: 200px;
+  width: min-200px;
 
 
 color: #bbb;
@@ -135,7 +143,7 @@ html {
   border: 4px solid black;
  /* border-radius: 5px; */
 
-  width: 280px;
+  min-width: 257px;
 }
 
 input[type=search] {
@@ -252,7 +260,7 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
 </head>
 
-<body class="d-flex flex-column min-vh-100 overflow-auto">
+<body class="d-flex flex-column min-vh-100 overflow-auto"  >
 		
 <nav class="navbar navbar-expand-md navbar-light">
 <div class="container position-static">
@@ -303,50 +311,50 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
  <div class="container">
   <form  >
   <div class="container">
-  <div class="row-fix row">
+  <div class="row-fix row d-flex justify-content-start ">
   <div class="search-bar col-auto">
-  <input name="vardas" type="search" placeholder="Paieška pagal vardą">
+  <input name="vardas" type="search" placeholder="Paieška pagal vardą" value="<?php if (!empty($_GET)) {echo $_GET['vardas'];}?>">
   <button type="submit" >Ieškoti</button>
   </div>
-              <div class=" col-auto row-fix"><select name="kategorija"  >
+              <div class=" col-auto row-fix"><select name="kategorija" onchange="this.form.submit()" >
 		
 			<option value="">Kategorija</option>
 			
             <?php foreach($kategorijosList as $id => $option) { ?>
-                        <option  value="<?php echo $option["kategorijos_id"] ?>"><?php echo $option["kategorija"] ?></option>
+                        <option  value="<?php echo $option["kategorijos_id"] ?>" <?php if (!empty($_GET) && $_GET['kategorija'] == $option["kategorijos_id"]) {echo " selected";} ?>><?php echo $option["kategorija"] ?></option>
           <?php } ?>
               </select> </div>
 			  
-			                <div class=" col-auto row-fix"><select name="amzius" >
+			                <div class=" col-auto row-fix"><select name="amzius" onchange="this.form.submit()">
 		
 			<option value="">Amžius</option>
 			
             
-                        <option  value="0">nuo 0 iki 1 metų</option>
-						<option  value="1">nuo 1 iki 2 metų</option>
-						<option  value="2">nuo 2 iki 3 metų</option>
-						<option  value="3">nuo 3 iki 4 metų</option>
-						<option  value="4">nuo 4 iki 5 metų</option>
-						<option  value="5">nuo 5 iki 6 metų</option>
-						<option  value="6">nuo 6 iki 7 metų</option>
-						<option  value="7">nuo 7 iki 8 metų</option>
-						<option  value="8">nuo 8 iki 9 metų</option>
-						<option  value="9">nuo 9 iki 10 metų</option>
-						<option  value="10">nuo 10 iki 11 metų</option>
-						<option  value="11">nuo 11 iki 12 metų</option>
-						<option  value="12">nuo 12 iki 13 metų</option>
-						<option  value="13">nuo 13 iki 14 metų</option>
-						<option  value="14">nuo 14 iki 15 metų</option>
-						<option  value="15">nuo 15 iki 16 metų</option>
-						<option  value="16">nuo 16 iki 17 metų</option>
-						<option  value="17">nuo 17 iki 18 metų</option>
-						<option  value="18">nuo 18 iki 19 metų</option>
-						<option  value="19">nuo 19 iki 20 metų</option>
-						<option  value="20">nuo 20 iki 21 metų</option>
+<option  value="0" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 0) {echo "selected";}?>>nuo 0 iki 1 metų</option>
+<option  value="1" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 1) {echo "selected";}?>>nuo 1 iki 2 metų</option>
+<option  value="2" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 2) {echo "selected";}?>>nuo 2 iki 3 metų</option>
+<option  value="3" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 3) {echo "selected";}?>>nuo 3 iki 4 metų</option>
+<option  value="4" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 4) {echo "selected";}?>>nuo 4 iki 5 metų</option>
+<option  value="5" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 5) {echo "selected";}?>>nuo 5 iki 6 metų</option>
+<option  value="6" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 6) {echo "selected";}?>>nuo 6 iki 7 metų</option>
+<option  value="7" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 7) {echo "selected";}?>>nuo 7 iki 8 metų</option>
+<option  value="8" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 8) {echo "selected";}?>>nuo 8 iki 9 metų</option>
+<option  value="9" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 9) {echo "selected";}?>>nuo 9 iki 10 metų</option>
+<option  value="10" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 10) {echo "selected";}?>>nuo 10 iki 11 metų</option>
+<option  value="11" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 11) {echo "selected";}?>>nuo 11 iki 12 metų</option>
+<option  value="12" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 12) {echo "selected";}?>>nuo 12 iki 13 metų</option>
+<option  value="13" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 13) {echo "selected";}?>>nuo 13 iki 14 metų</option>
+<option  value="14" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 14) {echo "selected";}?>>nuo 14 iki 15 metų</option>
+<option  value="15" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 15) {echo "selected";}?>>nuo 15 iki 16 metų</option>
+<option  value="16" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 16) {echo "selected";}?>>nuo 16 iki 17 metų</option>
+<option  value="17" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 17) {echo "selected";}?>>nuo 17 iki 18 metų</option>
+<option  value="18" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 18) {echo "selected";}?>>nuo 18 iki 19 metų</option>
+<option  value="19" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 19) {echo "selected";}?>>nuo 19 iki 20 metų</option>
+<option  value="20" <?php if (!empty($_GET) && is_numeric($_GET['amzius']) && $_GET['amzius'] == 20) {echo "selected";}?>>nuo 20 iki 21 metų</option>
 						
 						
          
-              </select> </div>  <a class="CSV_mygtukas text-center col nav-link"  href="./download-animals-csv.php">Atsiųsti gyvūnėlių duomenis (CSV)</a> 
+              </select> </div>  <a class="CSV_mygtukas text-center col-auto nav-link"  href="./download-animals-csv.php">Atsiųsti gyvūnėlių duomenis (CSV)</a> 
 </div></div></form>
 
 
