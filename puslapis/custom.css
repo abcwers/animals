@@ -1,3 +1,4 @@
+
 html {
   overflow-y: scroll;
 }
@@ -27,6 +28,7 @@ color: black !important;
 opacity:0.8;
 }
 
+
 .galerija-link {
 
 color: black !important;
@@ -37,6 +39,7 @@ color: black !important;
 
 opacity:0.8;
 }
+
 
 .navbar-brand, .active {
 
@@ -70,6 +73,7 @@ margin-left: 0
 }
 
 .navbar-expand-md{
+
 top:20px ; /* meniu nuleidimas nuo viršaus */
 
 }
@@ -103,6 +107,7 @@ input,select{
 	text-color:black;
 	width: 150px;
 }
+
 
 input.paieska{
 	border:none; 
@@ -309,5 +314,3 @@ font-size: 19px;
   background: #cccccc;
   
 }
-
-
