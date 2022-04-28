@@ -234,6 +234,13 @@ document.body.appendChild(masonryScript);
 </div>
 
  
+ <div class="col text-center" <?php if (empty($result)) { echo "style='display:block;'"; } else {echo "style='display:none;'";}?>>
+<div  style ="height:50px"> </div> 
+<h4 class="mt-3">Globotinių neradome :(</h4>
+<div>Pasirinkite kitus paieškos kriterijus ir bandykite dar kartą.</div> 
+</div>
+ 
+ 
 
   <p class="my-5">
 
