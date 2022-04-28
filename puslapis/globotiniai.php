@@ -89,174 +89,35 @@ $i++;
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
+
+<link href="./custom.css" rel="stylesheet">
 
 <link href='https://fonts.googleapis.com/css?family=Balsamiq Sans' rel='stylesheet'>
+
+
+<script>
+setTimeout(function(){
+let masonryScript = document.createElement( 'script' );
+masonryScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js');
+document.body.appendChild(masonryScript);	
+}, 50);
+</script>
 
 	
 <style>
 
-.CSV_mygtukas {
-  border: 4px solid black !important;
-  padding: 6px;
- color:black;
-font-size: 19px;
- min-width: 250px;
-  background: #cccccc;
-  
-}
-
-select {
-
-  background: transparent;
-  width: min-200px;
-
-
-color: #bbb;
-  border: 4px black solid;
-  opacity: 1;
-  
-    
-  display: flex;
-
- padding: 7px 8px;
-  
-}
-
-input::placeholder {
-  color: #bbb;
-}
-
-option{background: white;
-border: 4px solid;
-
-}
-
-html {
-  overflow-y: scroll;
-}
-
-.search-bar {
-  color: #555;
-  display: flex;
-  padding: 2px;
-  border: 4px solid black;
- /* border-radius: 5px; */
-
-  min-width: 257px;
-}
-
-input[type=search] {
-  border: none;
-  background: transparent;
-  
-
-
-  color: inherit;
-  border: 1px solid transparent;
-  border-radius: inherit;
-}
-
-input[type=search]::placeholder {
-  
-}
-
-button[type=submit] {
-  text-indent: -999px;
-  overflow: hidden;
-  width: 40px;
-  padding: 0;
-  
-  border: 1px solid transparent;
-  border-radius: inherit;
-  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-button[type=submit]:hover {
-  opacity: 1;
-}
-
-button[type=submit]:focus,
-input[type=search]:focus {
-  box-shadow: 0 0 3px 0 #1183d6;
-  border-color: #1183d6;
-  outline: none;
-}
-
-
-
-
-
-.row{ margin-left: 0; margin-right: 0;}
-
-.row-fix{   display: -webkit-box;
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;}
-
-body {
-    font-family: 'Balsamiq Sans';
-}	
 	
-.nav-link {
 
-color: black !important;
-}
 
-.nav-link:hover {
 
-opacity:0.8;
-}
 
-.galerija-link {
 
-color: black !important;
-}
 
-.galerija-link:hover {
 
-opacity:0.8;
-}
-
-.navbar-brand, .active {
-
-font-weight: 700 !important;
-}
-
-.navbar-brand img {
-margin-top:-16px;
-}
-	
-.prideti {
-  border: 5px solid black;
-  padding: 0px;
- margin-right: 20px;
- background: #2b78e4;
- color: white !important;
-}
-
-.telefonas {
-  border: 5px solid;
-  padding: 10px;
-  
- background: #cccccc;
- width: 260px;
-
-}	
-
-.fb{
- white-space: nowrap;
-margin-left: 0
-}
-
-.navbar-expand-md{
-top:20px ; /* meniu nuleidimas nuo viršaus */
-}
 
 	</style>
+
 
 </head>
 
@@ -307,25 +168,26 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 
 	
  <main class="container py-5">
- 
+
  <div class="container">
   <form  >
-  <div class="container">
-  <div class="row-fix row d-flex justify-content-start ">
-  <div class="search-bar col-auto">
-  <input name="vardas" type="search" placeholder="Paieška pagal vardą" value="<?php if (!empty($_GET)) {echo $_GET['vardas'];}?>">
-  <button type="submit" >Ieškoti</button>
-  </div>
-              <div class=" col-auto row-fix"><select name="kategorija" onchange="this.form.submit()" >
+  <div class="row " >
+  <div class="col-auto  " id="outer" style="border: 4px solid black;"> <!--  paieškos rėmelis -->
+  <div class="row-fix row " > <!-- eilutės kontaineris -->
+  <div class="col-auto line" > <!-- vardas pradžia -->
+  <input  class="paieska" name="vardas" type="search" placeholder="Įveskite gyvūno vardą" value="<?php if (!empty($_GET)) {echo $_GET['vardas'];}?>">
+  
+  </div> <!-- vardas pabaiga -->
+        <!-- kategorija pradžia -->      <div class=" col-auto line"><select class="paieska  " name="kategorija" onchange="this.form.submit()" >
 		
 			<option value="">Kategorija</option>
 			
             <?php foreach($kategorijosList as $id => $option) { ?>
                         <option  value="<?php echo $option["kategorijos_id"] ?>" <?php if (!empty($_GET) && $_GET['kategorija'] == $option["kategorijos_id"]) {echo " selected";} ?>><?php echo $option["kategorija"] ?></option>
           <?php } ?>
-              </select> </div>
+              </select> </div>  <!-- kategorija pabaiga --> 
 			  
-			                <div class=" col-auto row-fix"><select name="amzius" onchange="this.form.submit()">
+			   <!-- amzius pradžia -->   <div class=" col-auto "><select class="paieska " name="amzius" onchange="this.form.submit()">
 		
 			<option value="">Amžius</option>
 			
@@ -354,10 +216,22 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
 						
 						
          
-              </select> </div>  <a class="CSV_mygtukas text-center col-auto nav-link"  href="./download-animals-csv.php">Atsiųsti gyvūnėlių duomenis (CSV)</a> 
-</div></div></form>
+              </select> 
+			  
+			  </div> <!-- amzius pabaiga -->
 
+			  </div>  <!-- eilutės kontaineris -->
+			  
+			  </div>  <!--  paieškos rėmelis -->
+			  
+			  <button type="submit" class="col-auto mx-4 btn_ieskoti nav-link my-2 my-lg-0 "></button> <!--  paieškos mygtukas -->
+			  <div class="col-auto" style="display: flex;">
+			  <a class=" nav-link " style="align-self: flex-end;" href="./download-animals-csv.php"><img style="margin-top:-7px" src="./img/download.svg" alt="..." height="15">
+			    <span > Atsisiųsti visų globotinių sąrašą</a></a> </div>
+				
+</form>
 
+</div>
 
  
 
@@ -380,11 +254,6 @@ top:20px ; /* meniu nuleidimas nuo viršaus */
     </div>
   <?php } ?>
   
-  
-  
-
-
-
 
   </div>
  </div>

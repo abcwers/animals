@@ -1,0 +1,313 @@
+html {
+  overflow-y: scroll;
+}
+
+.row{ margin-left: 0; margin-right: 0;}
+
+.row-fix{   display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;}
+
+body {
+    font-family: 'Balsamiq Sans';
+	min-height:100vh;
+	
+
+}
+
+.nav-link {
+
+color: black !important;
+}
+
+.nav-link:hover {
+
+opacity:0.8;
+}
+
+.galerija-link {
+
+color: black !important;
+ text-decoration: none;
+}
+
+.galerija-link:hover {
+
+opacity:0.8;
+}
+
+.navbar-brand, .active {
+
+font-weight: 700 !important;
+}
+
+.navbar-brand img {
+margin-top:-16px;
+}
+
+.prideti {
+  border: 5px solid black;
+  padding: 0px;
+ margin-right: 20px;
+ background: #2b78e4;
+ color: white !important;
+}
+
+.telefonas {
+  border: 5px solid;
+  padding: 10px;
+ /* box-shadow: 3px 5px;*/
+ background: #cccccc;
+ width: 260px;
+
+}
+
+.fb{
+ white-space: nowrap;
+margin-left: 0
+}
+
+.navbar-expand-md{
+top:20px ; /* meniu nuleidimas nuo viršaus */
+
+}
+ .stiliusf {
+ font-size: 17px;  }   /*Naudojamas puslapyje "pie mus"*/
+  
+
+.error {color: #cf292a;}
+.errorBorder {border: 4px solid #cf292a !important;}
+
+
+.btn_issaugoti {
+  border: 5px solid black;
+  padding: 10px;
+ /* box-shadow: 3px 5px; */
+ background: #2b78e4;
+ /* background:#4275b9 ; */
+ color: white !important;
+ width: 250px;
+
+}
+
+.btn_issaugoti:hover {
+opacity:0.8;
+}
+
+
+input,select{
+	  border: 4px solid;
+	background: white;
+	text-color:black;
+	width: 150px;
+}
+
+input.paieska{
+	border:none; 
+	min-width:170px;
+	height: 34px;	
+}
+
+
+input.paieska::placeholder {
+  color: #666665;  
+  opacity: 1;
+}
+
+select.paieska{
+   border:0px;
+   outline:0px;
+   color: #666665;
+   min-width:170px;	
+}
+
+
+
+ .btn_ieskoti {
+background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='magnifying-glass' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' data-fa-i2svg=''%3E%3Cpath fill='white' d='M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z' %3E%3C/path%3E%3C/svg%3E");
+
+background-repeat: no-repeat;
+background-size: 20px; /* ikonos dydis */
+background-position: center;
+
+background-color: #2b78e4;
+border: 4px solid;
+height: 40px;
+width: 40px;
+
+line-height: 40px; /* Used to center the text vertically. Use the same value as the height.*/
+
+bottom: auto;
+right: 0%;
+left: auto;
+top: 0%;
+} 
+
+
+
+
+#outer {
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+
+.line {
+    padding-right: 21px; /* 20+1 */
+    position: relative;
+}
+.line:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    border-right: 1px solid black;
+    top: 10%;
+    bottom: 10%;
+}
+
+
+
+
+
+
+::-webkit-input-placeholder {
+       color: orange;
+    }
+    :-moz-placeholder { /* Upto Firefox 18, Deprecated in Firefox 19  */
+       color: orange;  
+    }
+    ::-moz-placeholder {  /* Firefox 19+ */
+       color: orange;  
+    }
+    :-ms-input-placeholder {  
+       color: orange;  
+    }
+
+
+select {
+	//-webkit-appearance: none;
+  //-moz-appearance: none;
+  background: transparent;
+  width: 150px;
+
+  border: 0px solid #CCC;
+  height: 34px;
+  border: 4px solid;
+  opacity: 1;
+}
+
+
+option{background: white;
+border: 4px solid;
+}
+
+
+textarea::-webkit-input-placeholder {
+  color: black;
+}
+
+textarea:-moz-placeholder { /* Firefox 18- */
+  color: black;  
+}
+
+textarea::-moz-placeholder {  /* Firefox 19+ */
+  color: black;  
+}
+
+textarea:-ms-input-placeholder {
+  color: black;  
+}
+
+::placeholder {
+  color: #000000;  
+  opacity: 1;
+}
+
+textarea{
+border: 4px solid black;
+box-sizing: border-box;
+padding: 5px 10px;
+max-width: 100%;
+}
+
+input:focus { 
+        outline: none !important;
+        border-color: #black;
+      /*  box-shadow: 0 0 10px #719ECE; */
+    }
+	
+textarea:focus { 
+        outline: none !important;
+        border-color: #black;
+    /*    box-shadow: 0 0 10px #719ECE; */
+    }
+
+
+.select_box{
+  width: 150px;
+  overflow: hidden;
+  border: 0px solid #000;
+  position: relative;
+ 
+}
+ 
+ .select_box:after{
+  width: 0; 
+  height: 0; 
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid black ;
+  position: absolute;
+  top: 43%;
+  right: 7px;
+  content: "";
+  z-index: 98;
+ }
+
+.ErrDropList{
+  width: 150px;
+  overflow: hidden;
+  border: 0px solid #000;
+  position: relative; 
+ }
+
+.ErrDropList:after{
+  width: 0; 
+  height: 0; 
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #cf292a ;
+  position: absolute;
+  top: 43%;
+  right: 7px;
+  content: "";
+  z-index: 98;
+ }
+
+
+.prideti_pavyko {
+  border: 3px solid black;
+  padding: 6px;
+ /* box-shadow: 3px 5px; */
+font-size: 19px;
+ width: 190px;
+  background: #2b78e4;
+  color: white !important;
+}
+
+.prideti_pavyko_grizti {
+  border: 3px solid black;
+  padding: 6px;
+ /* box-shadow: 3px 5px; */
+font-size: 19px;
+ width: 190px;
+  background: #cccccc;
+  
+}
+
+
