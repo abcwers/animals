@@ -322,7 +322,8 @@ function test_input($data)
               <option value="">Kategorija*</option>
 
               <?php foreach ($result as $id => $option) { ?>
-                <option value="<?php echo $option["kategorijos_id"] ?>"><?php echo $option["kategorija"] ?></option>
+                <option value="<?php echo $option["kategorijos_id"] ?>" 
+				<?php if (!empty($_POST) && $_POST['kategorija'] == $option["kategorijos_id"]) {echo " selected";} ?>><?php echo $option["kategorija"] ?></option>
               <?php } ?>
             </select><span class="error"> </div>
           <br>
@@ -333,8 +334,8 @@ function test_input($data)
           <br>
           <div class="<?php echo $dokumentaiErrArrow; ?> select_box "> <select name="dokumentai" <?php echo $dokumentaiErrBorder; ?>>
               <option value="">Dokumentai*</option>
-              <option value="yra">yra</option>
-              <option value="nėra">nėra</option>
+              <option value="yra" <?php if (!empty($_POST) && $_POST["dokumentai"] == "yra") {echo "selected";}?>>yra</option>
+              <option value="nėra" <?php if (!empty($_POST) && $_POST["dokumentai"] == "nėra") {echo "selected";}?>>nėra</option>
             </select></div></br>
 
           <label for="fileToUpload">Pasirinkite foto *:</label>
