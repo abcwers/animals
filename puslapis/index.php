@@ -128,7 +128,7 @@ document.body.appendChild(masonryScript);
 				<!-- data-masonry="{&quot;percentPosition&quot;: true }" -->
   <div class="row row-fix" data-masonry="{&quot;horizontalOrder&quot;: true }" style="position: relative; height: 690px;">
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
-	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[0]["gyvuno_id"]; ?>">
+	<a class="galerija-link"  href="./aprasymas.php?id=<?php echo $skelbimas[0]["gyvuno_id"]; ?>">
       <div class="card">
 	
 	<img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[0]["foto_url"]; ?>" alt="..." width="100%" >
@@ -139,7 +139,7 @@ document.body.appendChild(masonryScript);
       </div></a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 0px;">
-	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[1]["gyvuno_id"]; ?>">
+	<a class="galerija-link"  href="./aprasymas.php?id=<?php echo $skelbimas[1]["gyvuno_id"]; ?>">
       <div class="card">
 
 <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[1]["foto_url"]; ?>" alt="..." width="100%" >
@@ -150,7 +150,7 @@ document.body.appendChild(masonryScript);
       </div> </a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 66.6667%; top: 0px;">
-	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[2]["gyvuno_id"]; ?>">
+	<a class="galerija-link"  href="./aprasymas.php?id=<?php echo $skelbimas[2]["gyvuno_id"]; ?>">
       <div class="card">
 
 <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[2]["foto_url"]; ?>" alt="..." width="100%" >
@@ -161,7 +161,7 @@ document.body.appendChild(masonryScript);
       </div></a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 33.3333%; top: 171px;">
-	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[3]["gyvuno_id"]; ?>">
+	<a class="galerija-link"  href="./aprasymas.php?id=<?php echo $skelbimas[3]["gyvuno_id"]; ?>">
       <div class="card">
 
 <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[3]["foto_url"]; ?>" alt="..." width="100%" >
@@ -172,7 +172,7 @@ document.body.appendChild(masonryScript);
       </div></a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4 " style="position: absolute; left: 33.3333%; top: 310px;">
-	<a class="nav-link"  href="./aprasymas.php?id=<?php echo $skelbimas[4]["gyvuno_id"]; ?>">
+	<a class="galerija-link"  href="./aprasymas.php?id=<?php echo $skelbimas[4]["gyvuno_id"]; ?>">
       <div class="card">
 
 <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[4]["foto_url"]; ?>" alt="..." width="100%" >
@@ -183,7 +183,7 @@ document.body.appendChild(masonryScript);
       </div> </a>
     </div>
     <div class="col-sm-6 col-lg-4 mb-4 " style="position: absolute; left: 0%; top: 362px;">
-	<a class="nav-link"  href="./globotiniai.php">
+	<a class="galerija-link"  href="./globotiniai.php">
 <div class="card">
         <svg class="bd-placeholder-img card-img" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Card image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Žiūrėti visus</title><rect width="100%" height="100%" fill="#cccccc"></rect><text x="50%" y="50%" fill="black" dy=".3em" font-size="20px" text-anchor="middle">Žiūrėti visus</text></svg> 
    
