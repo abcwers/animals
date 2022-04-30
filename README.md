@@ -1,5 +1,5 @@
-Gyvūnų prieglaudos puslapis
-projekto laikas 2022.04.18-2022.04.29
+<img src="https://raw.githubusercontent.com/abcwers/animals/main/puslapis/img/peda.svg" alt="..." height="30"> Best Animals 
+<p>projekto laikas 2022.04.18-2022.04.29</p>
 
 užduotis
 Funkciniai reikalavimai
