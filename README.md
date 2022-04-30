@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/abcwers/animals/main/puslapis/img/peda.svg" alt="..." height="30"> Best Animals 
+<img src="https://raw.githubusercontent.com/abcwers/animals/main/puslapis/img/peda.svg" alt="..." height="30"> <h3>Best Animals</h3> 
 <p>projekto laikas 2022.04.18-2022.04.29</p>
 
 užduotis
