@@ -2,16 +2,11 @@
 //globotiniai.php
 include 'db.php';
 
-$connect = getDBConnection();
-
-//if (!empty($_GET)) {echo $_GET['vardas'];}
-
 $vardas = $kategorija = $amzius = "";
 
-
 //jei $_GET['amzius'] daugiau už 0 ir nėra tuščias
-if (!empty($_GET["amzius"])) {
-$time = strtotime("-" . $_GET['amzius'] . " year", time()); //
+if (!empty($_GET["amzius"]) && is_numeric($_GET['amzius']) ) {
+$time = strtotime("-" . BlockSQLInjection(test_input($_GET['amzius'])) . " year", time()); //
 $date = date("Y-m-d", $time);
 $amzius = " AND  amzius BETWEEN DATE_SUB(date '" . $date . "', INTERVAL 1 YEAR) AND date '" . $date ."'";
 ;} 
@@ -22,56 +17,18 @@ $amzius = " AND  amzius BETWEEN DATE_SUB(CURDATE(), INTERVAL 1 YEAR) AND CURDATE
 	 
  }
 
-if (!empty($_GET["vardas"])) {$vardas = "AND vardas LIKE '%" . $_GET['vardas']."%'";}
-if (!empty($_GET["kategorija"])) {$kategorija = "AND kategorijos_id = " . $_GET['kategorija'];}
-
+if (!empty($_GET["vardas"])) {$vardas = "AND vardas LIKE '%" . BlockSQLInjection(test_input($_GET['vardas']))."%'";}
+if (!empty($_GET["kategorija"]) && is_numeric($_GET['kategorija']) == true) {$kategorija = "AND kategorijos_id = " . BlockSQLInjection(test_input($_GET['kategorija']));}
 
 //paieškos SQL užklausa
 $query = "SELECT * FROM gyvunai  WHERE 1 " . $vardas ." ". $kategorija ." ".  $amzius . " ORDER BY gyvuno_id DESC" ; 
-//echo "<br>";
-//echo $query;
 
-$statement = $connect->prepare($query);
-$statement->execute();
-$result = $statement->fetchAll();
-foreach ($result as $row) {
-	$skelbimas[] = $row ;
-	 }
-    ?>
-	
-	<?php
+$result = selectData($query) ;
 
+//kategorijų sąrašo SQL užklausa
 $query2 = "SELECT * FROM kategorijos";
-$statement = $connect->prepare($query2);
-$statement->execute();
-$kategorijosList = $statement->fetchAll(PDO::FETCH_ASSOC);
+$kategorijosList = selectData($query2);
 	  ?>
-
-	
-
-	
-
-	<?php
-//SELECT amzius FROM gyvunai WHERE DATE_SUB(CURDATE(),INTERVAL 1 YEAR) <= amzius; 
-//SELECT amzius(DATEDIFF(DAY, amzius, @TargetDate) / 365.25) FROM gyvunai ORDER BY `gyvunai`.`amzius` DESC
-
-$query3 = "SELECT DISTINCT amzius FROM gyvunai ORDER BY `gyvunai`.`amzius` DESC";
-$statement = $connect->prepare($query3);
-$statement->execute();
-$result3 = $statement->fetchAll(PDO::FETCH_ASSOC);
-$i = 0;
-foreach ($result3 as $row) {
-$skelbimas1[] = $row ;
-$d1 = strtotime($skelbimas1[$i]["amzius"]); //gimimo data
-$d2 = strtotime("now"); // šiandienos data
-$totalSecondsDiff = abs($d1-$d2); //skirtumas sekundėmis
-$amzius = round($totalSecondsDiff/60/60/24/365,1); //skirtumas metais suapvalintas iki 1 skaičiaus po kablelio
-//echo  $amzius  ." metai"; 
-$i++;
-} ?>  
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +46,7 @@ $i++;
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" ></script>
 
 <link href="./custom.css" rel="stylesheet">
 
@@ -101,7 +58,7 @@ setTimeout(function(){
 let masonryScript = document.createElement( 'script' );
 masonryScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js');
 document.body.appendChild(masonryScript);	
-}, 50);
+}, 10);
 </script>
 
 	
@@ -175,7 +132,7 @@ document.body.appendChild(masonryScript);
   <div class="col-auto  " id="outer" style="border: 4px solid black;"> <!--  paieškos rėmelis -->
   <div class="row-fix row " > <!-- eilutės kontaineris -->
   <div class="col-auto line" > <!-- vardas pradžia -->
-  <input  class="paieska" name="vardas" type="search" placeholder="Įveskite gyvūno vardą" value="<?php if (!empty($_GET)) {echo $_GET['vardas'];}?>">
+  <input  class="paieska" name="vardas" type="search" placeholder="Įveskite gyvūno vardą" value="<?php if (!empty($_GET)) {echo BlockSQLInjection(test_input($_GET['vardas']));}?>">
   
   </div> <!-- vardas pabaiga -->
         <!-- kategorija pradžia -->      <div class=" col-auto line"><select class="paieska  " name="kategorija" onchange="this.form.submit()" >

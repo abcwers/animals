@@ -4,13 +4,10 @@ include 'db.php';
 //require 'db.php';
 
 $connect = getDBConnection();
+//kategorijų sąrašo ištraukimas
 $query = "SELECT * FROM kategorijos";
-$statement = $connect->prepare($query);
-$statement->execute();
-$result = $statement->fetchAll(PDO::FETCH_ASSOC);
-?>
+$kategorijosList = selectData($query);
 
-<?php
 
 // ---------------------------------------------------------------------------------
 // define variables and set to empty values
@@ -21,45 +18,42 @@ $vardasErrBorder = $kategorijaErrBorder = $amziusErrBorder = $dokumentaiErrBorde
 $vardas = $kategorija = $amzius = $dokumentai = $fileToUpload = $aprasymas = "";
 $patikrinimas = 0;
 
-
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  $aprasymas = test_input($_POST["aprasymas"]);
+  $aprasymas = BlockSQLInjection(test_input($_POST["aprasymas"]));
 
   if (empty($_POST["vardas"])) {
     $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
     $vardasErrBorder = 'class="errorBorder"';
     $patikrinimas = 1;
   } else {
-    $vardas = test_input($_POST["vardas"]);
+    $vardas = BlockSQLInjection(test_input($_POST["vardas"]));
   }
 
-  if (empty($_POST["kategorija"])) {
+  if (empty($_POST["kategorija"]) | !is_numeric($_POST["kategorija"])) {
     $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
     $kategorijaErrBorder  = 'class="errorBorder"';
     $kategorijaErrArrow = 'ErrDropList';
     $patikrinimas = 1;
   } else {
-    $kategorija = test_input($_POST["kategorija"]);
+    $kategorija = BlockSQLInjection(test_input($_POST["kategorija"]));
   }
 
-  if (empty($_POST["amzius"])) {
+  if (empty($_POST["amzius"]) | !date("Y-m-d", strtotime($_POST["amzius"]))==$_POST["amzius"]) {
     $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
     $amziusErrBorder  = 'class="errorBorder"';
     $patikrinimas = 1;
   } else {
-    $amzius = test_input($_POST["amzius"]);
+    $amzius = BlockSQLInjection(test_input($_POST["amzius"]));
   }
 
-  if (empty($_POST["dokumentai"])) {
+  if (empty($_POST["dokumentai"]) | !$_POST["dokumentai"] == "yra" | !$_POST["dokumentai"] == "nėra") {
     $KlaidosPranesimas = "Neteisingai suvesti duomenys. Prašome įvesti visus * pažymėtus laukelius.";
     $dokumentaiErrBorder  = 'class="errorBorder"';
     $dokumentaiErrArrow = 'ErrDropList';
     $patikrinimas = 1;
   } else {
-    $dokumentai = test_input($_POST["dokumentai"]);
+    $dokumentai = BlockSQLInjection(test_input($_POST["dokumentai"]));
   }
 
   if (empty($_FILES["fileToUpload"]["name"])) {
@@ -75,18 +69,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $query2 = "SELECT * FROM gyvunai ORDER BY gyvuno_id DESC";
 
-
-    $connect = getDBConnection();
-    $statement = $connect->prepare($query2);
-    $statement->execute();
-    $result2 = $statement->fetchAll();
-    foreach ($result2 as $row) {
-      $skelbimas[] = $row;
-    }
+	$result2 = selectData($query2) ;
 
     //būsimas ID naujam įrašui SQL, ir dalis būsimo failo vardo
-    $ID = $skelbimas[0][0] + 1;
-
+    $ID = $result2[0]["gyvuno_id"]  + 1;
+	
+  //failo įkėlimas
     $target_dir = "./img/skelbimu_img/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
@@ -141,35 +129,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query3 = sprintf(
       "INSERT INTO `gyvunai` (`gyvuno_id`, `vartotojo_id`, `kategorijos_id`, `vardas`, `amzius`, `dokumentacija`, `aprasymas`, `foto_url`) VALUES (%s,13, %s, '%s', date '%s', '%s', '%s', '%s')",
       ($ID),
-      ($_POST["kategorija"]),
-      ($_POST["vardas"]),
-      ($_POST["amzius"]),
-      ($_POST["dokumentai"]),
-      ($_POST["aprasymas"]),
+      BlockSQLInjection(test_input(($_POST["kategorija"]))),
+      BlockSQLInjection(test_input(($_POST["vardas"]))),
+      BlockSQLInjection(test_input(($_POST["amzius"]))),
+      BlockSQLInjection(test_input(($_POST["dokumentai"]))),
+      BlockSQLInjection(test_input(($_POST["aprasymas"]))),
       ("ID-" . $ID . "." . $imageFileType)
     );
 
-    $connect = getDBConnection();
-    $statement = $connect->prepare($query3);
-    $statement->execute();
-    $result3 = $statement->fetchAll();
+	$result3 = selectData($query3);
 
-    header("Location: ./prideti_pavyko.php?id=" . $ID);
-    exit();
+   header("Location: ./prideti_pavyko.php?id=" . $ID);
+   exit();
   } else {
     //  $KlaidosPranesimas = $patikrinimas;
 
-
-
   }
-}
-
-function test_input($data)
-{
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
 }
 
 
@@ -196,7 +171,7 @@ function test_input($data)
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" defer></script>
 
   <link href='https://fonts.googleapis.com/css?family=Balsamiq Sans' rel='stylesheet'>
 
@@ -321,7 +296,7 @@ function test_input($data)
 
               <option value="">Kategorija*</option>
 
-              <?php foreach ($result as $id => $option) { ?>
+              <?php foreach ($kategorijosList as $id => $option) { ?>
                 <option value="<?php echo $option["kategorijos_id"] ?>" 
 				<?php if (!empty($_POST) && $_POST['kategorija'] == $option["kategorijos_id"]) {echo " selected";} ?>><?php echo $option["kategorija"] ?></option>
               <?php } ?>

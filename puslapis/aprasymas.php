@@ -2,13 +2,15 @@
 //aprasymas.php?id=2
 include 'db.php';
 
-$connect = getDBConnection();
+$id = "NULL";
+if (!empty($_GET["id"]) && is_numeric($_GET['id']) ) {
+$id = BlockSQLInjection(test_input($_GET['id']));
+}
 
-$query = "SELECT * FROM gyvunai,kategorijos WHERE gyvunai.kategorijos_id = kategorijos.kategorijos_id AND gyvuno_id= " . $_GET['id'] ;
+$query = "SELECT * FROM gyvunai,kategorijos WHERE gyvunai.kategorijos_id = kategorijos.kategorijos_id AND gyvuno_id= " . $id ;
 
-$statement = $connect->prepare($query);
-$statement->execute();
-$result = $statement->fetchAll();
+$result = selectData($query);
+
 foreach ($result as $row) {
   $skelbimas[] = $row;
   $d1 = strtotime($skelbimas[0]["amzius"]); //gimimo data
@@ -34,7 +36,7 @@ foreach ($result as $row) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" ></script>
 
   <link href='https://fonts.googleapis.com/css?family=Balsamiq Sans' rel='stylesheet'>
   <link href="./custom.css" rel='stylesheet'> <!-- CSS taisykles -->
@@ -94,17 +96,17 @@ foreach ($result as $row) {
           <div class="col-sm-6 col-lg-4">
             <div class="card">
 
-              <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php echo $skelbimas[0]["foto_url"]; ?>" alt="..." width="100%">
+              <img class="bd-placeholder-img card-img-top" src="./img/skelbimu_img/<?php if (!empty($result)) {echo $skelbimas[0]["foto_url"];} ?>" alt="..." width="100%">
 
 
             </div>
           </div>
           <div class="col-sm-6 col-lg-3">
 
-            <h4><b>Vardas:</b>&nbsp; <span class="stiliusf"><?php echo  $skelbimas[0]["vardas"]; ?></span></h4>
-            <h4><b>Kategorija:</b>&nbsp;<span class="stiliusf"><?php echo  $skelbimas[0]["kategorija"]; ?></span></h4>
-            <h4><b>Amžius:</b>&nbsp;<span class="stiliusf"><?php echo  $amzius  . " metai"; ?></h4>
-            <h4><b>Dokumentai:</b>&nbsp;<span class="stiliusf"><?php echo  $skelbimas[0]["dokumentacija"]; ?></span></h4>
+            <h4><b>Vardas:</b>&nbsp; <span class="stiliusf"><?php if (!empty($result)) {echo  $skelbimas[0]["vardas"];} ?></span></h4>
+            <h4><b>Kategorija:</b>&nbsp;<span class="stiliusf"><?php if (!empty($result)) {echo  $skelbimas[0]["kategorija"];} ?></span></h4>
+            <h4><b>Amžius:</b>&nbsp;<span class="stiliusf"><?php if (!empty($result)) {echo  $amzius  . " metai";} ?></h4>
+            <h4><b>Dokumentai:</b>&nbsp;<span class="stiliusf"><?php if (!empty($result)) {echo  $skelbimas[0]["dokumentacija"];} ?></span></h4>
 
 
 
@@ -113,7 +115,7 @@ foreach ($result as $row) {
           <div class="col-sm-6 col-lg-4">
 
             <h4><b>Aprašymas:</b></h4>
-            <span class="stiliusf"> <?php echo  $skelbimas[0]["aprasymas"]; ?></span>
+            <span class="stiliusf"> <?php if (!empty($result)) {echo  $skelbimas[0]["aprasymas"];} ?></span>
 
 
           </div>

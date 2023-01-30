@@ -5,9 +5,7 @@ include 'db.php';
 $connect = getDBConnection();
 
 $query = "SELECT * FROM gyvunai ORDER BY (gyvuno_id=16) DESC, RAND() LIMIT 0,5;";
-$statement = $connect->prepare($query);
-$statement->execute();
-$result = $statement->fetchAll();
+$result = selectData($query);
 foreach ($result as $row) {
 	$skelbimas[] = $row ;
 	 }
@@ -32,7 +30,7 @@ foreach ($result as $row) {
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
 
 <link href="./custom.css" rel="stylesheet" >
 
@@ -44,7 +42,7 @@ setTimeout(function(){
 let masonryScript = document.createElement( 'script' );
 masonryScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js');
 document.body.appendChild(masonryScript);	
-}, 50);
+}, 10);
 </script>
 
 </head>
