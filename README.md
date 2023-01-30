@@ -125,6 +125,8 @@ NFR2. Visi veiksmai sistemoje kaupiami įvykių žurnale*
 | [@VilteBort](https://github.com/VilteBort) | Paruošti dokumentaciją vartototojui, kaip naudotis webu |
 | Sprinto rezultato prezentacija | homepage + NR1 Diana, apie mus, kontaktai,globotiniai+paieška+vidinis gyvūno aprašymas, pridėti skelbimą (formos laukų klaidų tikrinimas+failo pridėjimas+SQL įrašas)+sukurto įrašo peržiūra, <br /><br /> |
 | --- | --- |
+| [@abcwers](https://github.com/abcwers) | prideta BlockSQLInjection() funkcija SQL užklausose, įvesties ir tuščių reikšmių tikrinimas... |
+| --- | --- |
 | --- | *FR1 Aš kaip vartotojas galiu užsiregistruoti gyvūnų www |
 | --- | *FR1 Aš kaip vartotojas galiu prisijungti prie gyvūnų www |
 | --- | *FR2 Aš kaip vartotojas galiu redaguoti savo įvestą gyvūno skelbimą |
